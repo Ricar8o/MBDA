@@ -1,0 +1,65 @@
+/*Crud BIBLIOTECA*/
+ALTER TABLE telefonos ADD CONSTRAINT FK_TELEFONO_BIBLIOTECA
+FOREIGN KEY (biblioteca) REFERENCES bibliotecas(nombre);
+ALTER TABLE telefonos ADD CONSTRAINT CK_TELEFONOS_TEL
+CHECK (LENGTH(TRIM(TRANSLATE(telefono, '0123456789', ' '))) = 0);
+
+/*Crud Afiliado*/
+
+ALTER TABLE afiliados_oro ADD CONSTRAINT FK_AFILIADO_ORO
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+ALTER TABLE afiliados_plata ADD CONSTRAINT FK_AFILIADO_PLATA
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+ALTER TABLE intereses ADD CONSTRAINT PK_INTERES
+PRIMARY KEY (afiliado, palabra);
+ALTER TABLE intereses ADD CONSTRAINT FK_INTERES
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+
+/*CRUD empleado*/
+
+ALTER TABLE empleados ADD CONSTRAINT FK_EMPLEADO_BIBLIOTECA
+FOREIGN KEY (biblioteca) REFERENCES bibliotecas(nombre);
+ALTER TABLE archivistas ADD CONSTRAINT FK_ARCHIVISTA
+FOREIGN KEY (empleado) REFERENCES empleados(codigo);
+ALTER TABLE bibliotecarios ADD CONSTRAINT FK_BIBLIOTECARIO
+FOREIGN KEY (empleado) REFERENCES empleados(codigo);
+ALTER TABLE servicio_generales ADD CONSTRAINT FK_SERVICIOS
+FOREIGN KEY (empleado) REFERENCES empleados(codigo);
+
+/*CRUD libro*/
+
+ALTER TABLE etiquetas ADD CONSTRAINT PK_ETIQUETA
+PRIMARY KEY (libro, palabra);
+ALTER TABLE etiquetas ADD CONSTRAINT FK_ETIQUETA
+FOREIGN KEY (libro) REFERENCES libros(codigo);
+ALTER TABLE libros ADD CONSTRAINT FK_LIBRO_BIBLIOTECA
+FOREIGN KEY (biblioteca) REFERENCES bibliotecas(nombre);
+ALTER TABLE libros ADD CONSTRAINT FK_LIBRO_ARCHIVISTA
+FOREIGN KEY (archivista) REFERENCES archivistas(empleado);
+
+
+/*CRUD reserva*/
+
+
+ALTER TABLE reservas ADD CONSTRAINT FK_RESERVA1
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+ALTER TABLE reservas ADD CONSTRAINT FK_RESERVA2
+FOREIGN KEY (libro) REFERENCES libros(codigo);
+
+/*CRUD prestamo*/
+
+ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO1
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO2
+FOREIGN KEY (libro) REFERENCES libros(codigo);
+ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO3
+FOREIGN KEY (bibliotecario) REFERENCES bibliotecarios(empleado);
+
+/*CRUD multa*/
+
+ALTER TABLE multas ADD CONSTRAINT PK_MULTA
+PRIMARY KEY (causa, prestamo);
+ALTER TABLE multas ADD CONSTRAINT FK_MULTA1
+FOREIGN KEY (prestamo) REFERENCES prestamos(codigo);
+ALTER TABLE multas ADD CONSTRAINT FK_MULTA2
+FOREIGN KEY (causa) REFERENCES causas(id);
