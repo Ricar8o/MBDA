@@ -96,7 +96,7 @@ fecha DATE,
 afiliado varchar(6) NOT NULL,
 libro varchar(15) NOT NULL,
 fechaMaximaEntrega DATE,
-bibliotecario varchar(6)NOT NULL,
+empleado varchar(6)NOT NULL,
 FechaEntrega DATE);
 
 /*CRUD multa*/
