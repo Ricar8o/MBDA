@@ -218,215 +218,107 @@ INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editori
 VALUES('Ciudad de Ceniza', 1, 116, 13, 2, 'Planeta', 'Biblioteca Publica Julio Mario Santo Domingo');
 INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
 VALUES('Technology', 0, 126, 5, 3, 'Norma', 'Biblioteca Nacional');*/
+
+/**/
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa001');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa005');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa002');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa004');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa003');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','aja001');
+INSERT INTO categorias(nombre, libro) VALUES ('Aventura','aja001');
+INSERT INTO categorias(nombre, libro) VALUES ('Fantasia','aja001');
+
 /*autores*/
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'pgk292', 'George R.R. Martin'
-);
+VALUES('pgk292', 'George R.R. Martin');
 
-/* INSERT QUERY NO: 2 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'ago871', 'George R.R. Martin'
-);
+VALUES('ago871', 'George R.R. Martin');
 
-/* INSERT QUERY NO: 3 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'imf806', 'Bucky McCaskill'
-);
+VALUES('imf806', 'Bucky McCaskill');
 
-/* INSERT QUERY NO: 4 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'tki342', 'Gianna Andreas'
-);
+VALUES('tki342', 'Gianna Andreas');
 
-/* INSERT QUERY NO: 5 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'qmv007', 'Christiane Linklet'
-);
+VALUES('qmv007', 'Christiane Linklet');
 
-/* INSERT QUERY NO: 6 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000001', 'George R.R. Martin'
-);
+VALUES('000001', 'George R.R. Martin');
 
-/* INSERT QUERY NO: 7 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000002', 'George R.R. Martin'
-);
+VALUES('000002', 'George R.R. Martin');
 
-/* INSERT QUERY NO: 8 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000003', 'Letisha Hovenden'
-);
+VALUES('000003', 'Letisha Hovenden');
 
-/* INSERT QUERY NO: 9 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000004', 'Letisha Hovenden'
-);
+VALUES('000004', 'Letisha Hovenden');
 
-/* INSERT QUERY NO: 10 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000005', 'Beniamino Waldock'
-);
+VALUES('000005', 'Beniamino Waldock');
 
-/* INSERT QUERY NO: 11 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000006', 'Letisha Hovenden'
-);
+VALUES('000006', 'Letisha Hovenden');
 
-/* INSERT QUERY NO: 12 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000007', 'George R.R. Martin'
-);
+VALUES('000007', 'George R.R. Martin');
 
-/* INSERT QUERY NO: 13 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000008', 'Cassandra Clare'
-);
+VALUES('000008', 'Cassandra Clare');
 
-/* INSERT QUERY NO: 14 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000009', 'Cassandra Clare'
-);
+VALUES('000009', 'Cassandra Clare');
 
-/* INSERT QUERY NO: 15 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000010', 'Rubetta Larwood'
-);
+VALUES('000010', 'Rubetta Larwood');
 
-/* INSERT QUERY NO: 16 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'000011', 'Brittany Greir'
-);
+VALUES('000011', 'Brittany Greir');
 
-/* INSERT QUERY NO: 17 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'kgp432', 'Brittany Greir'
-);
+VALUES('kgp432', 'Brittany Greir');
 
-/* INSERT QUERY NO: 18 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'hih469', 'Rubetta Larwood'
-);
+VALUES('hih469', 'Rubetta Larwood');
 
-/* INSERT QUERY NO: 19 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'jof957', 'Bucky McCaskill'
-);
+VALUES('jof957', 'Bucky McCaskill');
 
-/* INSERT QUERY NO: 20 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'ocy073', 'Gianna Andreas'
-);
+VALUES('ocy073', 'Gianna Andreas');
 
-/* INSERT QUERY NO: 21 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'jbb186', 'Beniamino Waldock'
-);
+VALUES('jbb186', 'Beniamino Waldock');
 
-/* INSERT QUERY NO: 22 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'jbb187', 'Christiane Linklet'
-);
+VALUES('jbb187', 'Christiane Linklet');
 
-/* INSERT QUERY NO: 23 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'nyg100', 'Christiane Linklet'
-);
+VALUES('nyg100', 'Christiane Linklet');
 
-/* INSERT QUERY NO: 24 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'nyg101', 'Beniamino Waldock'
-);
+VALUES('nyg101', 'Beniamino Waldock');
 
-/* INSERT QUERY NO: 25 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'tbq800', 'Letti Barwis'
-);
+VALUES('tbq800', 'Letti Barwis');
 
-/* INSERT QUERY NO: 26 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'phx749', 'Letisha Hovenden'
-);
+VALUES('phx749', 'Letisha Hovenden');
 
-/* INSERT QUERY NO: 27 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'dog808', 'Krystyna Falconer-Taylor'
-);
+VALUES('dog808', 'Krystyna Falconer-Taylor');
 
-/* INSERT QUERY NO: 28 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'ocf581', 'Rolfe Mithun'
-);
+VALUES('ocf581', 'Rolfe Mithun');
 
-/* INSERT QUERY NO: 29 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'yls048', 'Vanni Blinder'
-);
+VALUES('yls048', 'Vanni Blinder');
 
-/* INSERT QUERY NO: 30 */
 INSERT INTO autores(libro, nombre)
-VALUES
-(
-'wrn003', 'Lynea Ivell'
-);
+VALUES('wrn003', 'Lynea Ivell');
 
 /* INSERT QUERY NO: 31 */
 INSERT INTO autores(libro, nombre)
@@ -513,17 +405,17 @@ INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, lib
 VALUES(6, DATE '2018-03-27', DATE '2018-03-03', 'aaa005', 'syc615', 'pgk292');
 
 /*Poblar reservas*/
-INSERT INTO reservas(codigo, fecha, afiliado_oro, libro, fecha_limite, empleado)
+INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(1, DATE '2018-03-05', 'imu336', 'tki342', DATE '2018-03-10', 'aaa002');
-INSERT INTO reservas(codigo, fecha, afiliado_oro, libro, fecha_limite, empleado)
+INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(2, DATE '2018-03-07', 'ett783', 'ckn018', DATE '2018-03-10', 'aaa003');
-INSERT INTO reservas(codigo, fecha, afiliado_oro, libro, fecha_limite, empleado)
+INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(3, DATE '2018-02-27', 'lud400', 'mpc505', DATE '2018-03-02', 'aaa004');
-INSERT INTO reservas(codigo, fecha, afiliado_oro, libro, fecha_limite, empleado)
+INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(4, DATE '2018-02-28', 'gof451', 'kgp432', DATE '2018-03-03', 'aaa005');
-INSERT INTO reservas(codigo, fecha, afiliado_oro, libro, fecha_limite, empleado)
+INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(5, DATE '2018-02-26', 'akb509', 'hbt165', DATE '2018-03-02', 'aaa006');
-INSERT INTO reservas(codigo, fecha, afiliado_oro, libro, fecha_limite, empleado)
+INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(6, DATE '2018-03-07', 'syc615', 'yls048', DATE '2018-03-11', 'aaa007');
 
 /*Poblar causas*/
