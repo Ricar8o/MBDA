@@ -57,7 +57,7 @@ libro VARCHAR(15) NOT NULL,
 nombre varchar(30) NOT NULL);
 
 CREATE TABLE categorias(
-libro NUMBER(15) NOT NULL,
+libro VARCHAR(6) NOT NULL,
 nombre varchar(20) NOT NULL);
 
 /*CRUD empleado*/
@@ -87,7 +87,8 @@ codigo  NUMBER(6) NOT NULL PRIMARY KEY,
 fecha DATE,
 afiliado varchar(6) NOT NULL,
 libro varchar(15) NOT NULL,
-fecha_limite DATE);
+fecha_limite DATE,
+empleado varchar(6));
 
 /*CRUD prestamo*/
 CREATE TABLE prestamos(
