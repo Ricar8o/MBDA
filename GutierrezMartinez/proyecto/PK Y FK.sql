@@ -53,7 +53,7 @@ FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
 ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO2
 FOREIGN KEY (libro) REFERENCES libros(codigo);
 ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO3
-FOREIGN KEY (bibliotecario) REFERENCES bibliotecarios(empleado);
+FOREIGN KEY (empleado) REFERENCES bibliotecarios(empleado);
 
 /*CRUD multa*/
 
