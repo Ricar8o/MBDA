@@ -96,9 +96,9 @@ codigo NUMBER(6) NOT NULL PRIMARY KEY,
 fecha DATE,
 afiliado varchar(6) NOT NULL,
 libro varchar(15) NOT NULL,
-fechaMaximaEntrega DATE,
+fechaPrestamo DATE,
 empleado varchar(6)NOT NULL,
-FechaEntrega DATE);
+fechaEntrega DATE);
 
 /*CRUD multa*/
 CREATE TABLE causas(
