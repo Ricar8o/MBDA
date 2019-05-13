@@ -97,7 +97,6 @@ codigo NUMBER(6) NOT NULL PRIMARY KEY,
 fecha DATE,
 afiliado varchar(6) NOT NULL,
 libro varchar(15) NOT NULL,
-fechaPrestamo DATE,
 empleado varchar(6)NOT NULL,
 fechaMaximaEntrega DATE,
 fechaEntrega DATE);
