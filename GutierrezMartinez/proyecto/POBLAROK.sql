@@ -170,7 +170,7 @@ INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora,
 VALUES('tok337', 'Ciudad de Cristal', 1, 139, 9, 5, 'Planeta', 'Virgilio Barco', '000017');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('jdh686', 'Ciudad de Hueso', 0, 72, 7, 1, 'Planeta', 'Virgilio Barco','000017');
-SELECT codigo,biblioteca FROM EMPLEADOS WHERE TIPO='a';
+/*SELECT codigo,biblioteca FROM EMPLEADOS WHERE TIPO='a';*/
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('mtv904', 'Consumer Services', 1, 122, 2, 3, 'Norma', 'Biblioteca Publica Lago Timiza','000002');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
@@ -216,7 +216,7 @@ VALUES('lyz889', 'Quercus cedrosensis C.H. Mull.', 0, 50, 5, 2, 'Norma', 'Biblio
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('fak833', 'Rhynchospora megaplumosa Bridges y Orzell', 0, 26, 12, 3, 'Salvat', 'Virgilio Barco','000008');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('kuh384', 'Scutellaria elliptica Muhl.', 1, 132, 12, 1, 'Salvat', 'El Tintal Manuel Zapata Olivella',000009);
+VALUES('kuh384', 'Scutellaria elliptica Muhl.', 1, 132, 12, 1, 'Salvat', 'El Tintal Manuel Zapata Olivella','000009');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('ckn018', 'Sphaeromeria compacta (H.M. Hall)', 0, 57, 10, 1, 'Salvat', 'Biblioteca Publica El parque','000015');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
@@ -249,7 +249,6 @@ INSERT INTO autores(libro, nombre)VALUES('jwq121', 'Letisha Hovenden');
 INSERT INTO autores(libro, nombre)VALUES('bza378', 'George R.R. Martin');
 INSERT INTO autores(libro, nombre)VALUES('tok337', 'Cassandra Clare');
 INSERT INTO autores(libro, nombre)VALUES('jdh686', 'Cassandra Clare');
-/*
 INSERT INTO autores(libro, nombre)VALUES('mtv904', 'Rubetta Larwood');
 INSERT INTO autores(libro, nombre)VALUES('mpc505', 'Brittany Greir');
 INSERT INTO autores(libro, nombre)VALUES('kgp432', 'Brittany Greir');
@@ -278,7 +277,7 @@ INSERT INTO autores(libro, nombre)VALUES('kuh384', 'Letisha Hovenden');
 INSERT INTO autores(libro, nombre)VALUES('ckn018', 'Krystyna Falconer-Taylor');
 INSERT INTO autores(libro, nombre)VALUES('omw135', 'Cassandra Clare');
 INSERT INTO autores(libro, nombre)VALUES('mge311', 'Rubetta Larwood');
-*/
+
 
 /*Poblar prestamo*/
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
