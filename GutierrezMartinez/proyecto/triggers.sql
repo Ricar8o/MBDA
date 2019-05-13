@@ -70,7 +70,7 @@ BEGIN
     IF (:old.tipo = 'n') THEN
         DELETE FROM AFILIADOS_NORMAL WHERE afiliado = :old.codigo;
     END IF;
-    IF (:old.tipo = 'o') THEN
+    IF (:old.tipo = 'p') THEN
         DELETE FROM AFILIADOS_PLATA WHERE afiliado = :old.codigo;
     END IF;
     IF (:new.tipo = 'o') THEN
@@ -137,7 +137,7 @@ BEGIN
 END;
 
 /*Se asegura que no se modifique el codigo ni el tipo del empleado*/
-CREATE OR REPLACE TRIGGER MO_EMPLEADO2
+CREATE OR REPLACE TRIGGER MO_EMPLEADO1
 BEFORE UPDATE OF CODIGO, TIPO ON EMPLEADOS
 FOR EACH ROW 
 BEGIN
@@ -145,7 +145,7 @@ BEGIN
 END;
 
 /*Se asegura que el archivista que registra el libro esté asignado a esa biblioteca*/
-CREATE OR REPLACE TRIGGER AD_LIBRO2
+CREATE OR REPLACE TRIGGER AD_LIBRO1
 BEFORE INSERT ON LIBROS
 FOR EACH ROW
 DECLARE 
@@ -167,7 +167,7 @@ DECLARE
     c number (1);
 BEGIN
     SELECT libre INTO a FROM LIBROS WHERE :new.libro = codigo;
-    SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado_oro;
+    SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
     IF ( a = 1 ) THEN
         RAISE_APPLICATION_ERROR(-20032, 'El libro se encuentrá ocupado.');
     END IF;
@@ -190,16 +190,30 @@ CREATE OR REPLACE TRIGGER AD_PRESTAMO1
 BEFORE INSERT ON PRESTAMOS
 FOR EACH ROW
 DECLARE 
+    lib varchar(6);
+    emp varchar (6);
+    af varchar(6);
     a varchar(50);
     b varchar (50);
     c number (1);
     d number (1);
 BEGIN
-    :new.FECHAENTREGA := NULL;
-    :new.bibliotecario := NULL;
-    SELECT biblioteca INTO b FROM LIBROS WHERE codigo = :new.libro;
-    SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
+    SELECT SYSDATE INTO :new.fechaPrestamo FROM DUAL; 
+    SELECT codigo INTO af FROM afiliados WHERE :new.afiliado = codigo;
+    SELECT empleado INTO emp FROM bibliotecarios WHERE :new.empleado = empleado;
+    SELECT codigo,biblioteca INTO lib,a FROM LIBROS WHERE :new.libro = codigo;
+    SELECT biblioteca INTO b FROM empleados WHERE :new.empleado = codigo;
+    SELECT bloqueado INTO c FROM afiliados WHERE :new.afiliado = codigo;
     SELECT libre INTO d FROM LIBROS WHERE :new.libro = codigo; 
+    IF ( af is null) THEN
+        RAISE_APPLICATION_ERROR(-20032, 'El afiliado no existe');
+    END IF;
+    IF ( emp is null) THEN
+        RAISE_APPLICATION_ERROR(-20032, 'El empleado no es un bibliotecario o no existe');
+    END IF;
+    IF ( lib is null) THEN
+        RAISE_APPLICATION_ERROR(-20032, 'El libro no existe');
+    END IF;
     IF ( a <> b) THEN
         RAISE_APPLICATION_ERROR(-20032, 'El bibliotecario que quiere registrar el prestamo no esta asignado a la biblioteca');
     END IF;
@@ -207,7 +221,7 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
     END IF;
     IF ( d = 1) THEN 
-        RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
+        RAISE_APPLICATION_ERROR(-20032, 'El libro ya se encuentra prestado');
     END IF;
 END;
 
