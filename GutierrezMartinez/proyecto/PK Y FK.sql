@@ -7,24 +7,30 @@ CHECK (LENGTH(TRIM(TRANSLATE(telefono, '0123456789', ' '))) = 0);
 /*Crud Afiliado*/
 
 ALTER TABLE afiliados_oro ADD CONSTRAINT FK_AFILIADO_ORO
-FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo)
+ON DELETE CASCADE;
 ALTER TABLE afiliados_plata ADD CONSTRAINT FK_AFILIADO_PLATA
-FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo)
+ON DELETE CASCADE;
 ALTER TABLE intereses ADD CONSTRAINT PK_INTERES
 PRIMARY KEY (afiliado, palabra);
 ALTER TABLE intereses ADD CONSTRAINT FK_INTERES
-FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo)
+ON DELETE CASCADE;
 
 /*CRUD empleado*/
 
 ALTER TABLE empleados ADD CONSTRAINT FK_EMPLEADO_BIBLIOTECA
 FOREIGN KEY (biblioteca) REFERENCES bibliotecas(nombre);
 ALTER TABLE archivistas ADD CONSTRAINT FK_ARCHIVISTA
-FOREIGN KEY (empleado) REFERENCES empleados(codigo);
+FOREIGN KEY (empleado) REFERENCES empleados(codigo)
+ON DELETE CASCADE;
 ALTER TABLE bibliotecarios ADD CONSTRAINT FK_BIBLIOTECARIO
-FOREIGN KEY (empleado) REFERENCES empleados(codigo);
+FOREIGN KEY (empleado) REFERENCES empleados(codigo)
+ON DELETE CASCADE;
 ALTER TABLE servicio_generales ADD CONSTRAINT FK_SERVICIOS
-FOREIGN KEY (empleado) REFERENCES empleados(codigo);
+FOREIGN KEY (empleado) REFERENCES empleados(codigo)
+ON DELETE CASCADE;
 
 /*CRUD libro*/
 
