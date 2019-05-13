@@ -3,7 +3,7 @@
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
 VALUES('Luis Angel Arango', 'Cl. 11 #4-14', '52513', 'LuisAngelA@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
-VALUES('Virgilio Barco', 'Avenida Carrera 60 #57 – 60', '215819', 'VirgilioBarco@bibliomail.com');
+VALUES('Virgilio Barco', 'Avenida Carrera 60 #57 â€“ 60', '215819', 'VirgilioBarco@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
 VALUES('El Tintal Manuel Zapata Olivella', 'Ak. 86 #6c-09', '461569', 'ElTintalMZO@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
@@ -67,7 +67,7 @@ insert into afiliados (cedula, nombre, correo, bloqueado, telefono, tipo) values
 insert into afiliados (cedula, nombre, correo, bloqueado, telefono, tipo) values ('8663832218', 'Lynsey Curdell', 'lcurdells@histats.com', 1, '7908838657', 'p');
 insert into afiliados (cedula, nombre, correo, bloqueado, telefono) values ('1258251372', 'Kali Burkinshaw', 'shawt@acquirethisname.com', 1, '6278154558');
 
-/*intereses*/
+/*intereses
 INSERT INTO intereses(afiliado, palabra)VALUES('000001', 'radical');
 INSERT INTO intereses(afiliado, palabra)VALUES('000002', 'Upgradable');
 INSERT INTO intereses(afiliado, palabra)VALUES('000003', 'Fundamental');
@@ -98,7 +98,7 @@ INSERT INTO intereses(afiliado, palabra)VALUES('000028', 'interactive');
 INSERT INTO intereses(afiliado, palabra)VALUES('000029', 'homogeneous');
 INSERT INTO intereses(afiliado, palabra)VALUES('000030', 'focus group');
 INSERT INTO intereses(afiliado, palabra)VALUES('000001', 'holistic');
-
+*/
 /*Poblar empleados*/
 INSERT INTO empleados(nombre, cedula, fechaVinculacion, salario, correo, telefono, biblioteca, tipo)
 VALUES('Case Rodriguez', 1060927138, DATE '2018-10-20', 1178366, 'clanfere0@newyorker.com', '3271793468', 'Biblioteca Publica Lago Timiza', 'b');
@@ -170,59 +170,61 @@ INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora,
 VALUES('tok337', 'Ciudad de Cristal', 1, 139, 9, 5, 'Planeta', 'Virgilio Barco', '000017');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('jdh686', 'Ciudad de Hueso', 0, 72, 7, 1, 'Planeta', 'Virgilio Barco','000017');
+SELECT codigo,biblioteca FROM EMPLEADOS WHERE TIPO='a';
 /*
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('mtv904', 'Consumer Services', 1, 122, 2, 3, 'Norma', 'Biblioteca Publica Lago Timiza');
+VALUES('mtv904', 'Consumer Services', 1, 122, 2, 3, 'Norma', 'Biblioteca Publica Lago timiza','000002');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('mpc505', 'Craniolaria L.', 1, 90, 9, 2, 'Norma', 'Biblioteca Nacional');
+VALUES('mpc505', 'Craniolaria L.', 1, 90, 9, 2, 'Norma', 'Biblioteca Nacional','000011');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('kgp432', 'Cyrilla Garden ex L.', 0, 131, 9, 2, 'Norma', 'La Victoria');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('hih469', 'Cyrilla parvifolia Raf.', 0, 59, 9, 5, 'Norma', 'Biblioteca Publica Lago Timiza');
+VALUES('hih469', 'Cyrilla parvifolia Raf.', 0, 59, 9, 5, 'Norma', 'Biblioteca Publica Lago timiza','000002');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('jof957', 'Draw', 0, 137, 6, 1, 'Norma', 'Biblioteca Publica Parque El Tunal');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('ocy073', 'Energy', 1, 116, 4, 5, 'Salvat', 'Biblioteca Nacional');
+VALUES('ocy073', 'Energy', 1, 116, 4, 5, 'Salvat', 'Biblioteca Nacional','000011');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('jbb187', 'Finance', 0, 65, 8, 3, 'Norma', 'Virgilio Barco');
+VALUES('jbb187', 'Finance', 0, 65, 8, 3, 'Norma', 'virgilio barco','000008');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('nyg101', 'Finance', 0, 44, 2, 1, 'Norma', 'Luis Angel Arango');
+VALUES('nyg101', 'Finance', 0, 44, 2, 1, 'Norma', 'Luis Angel arango','000006');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('tbq800', 'France', 1, 133, 11, 4, 'Norma', 'Biblioteca Nacional');
+VALUES('tbq800', 'France', 1, 133, 11, 4, 'Norma', 'Biblioteca Nacional','000011');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('phx749', 'Gladiolus communis L.', 0, 21, 14, 2, 'Salvat', 'Biblioteca Publica Julio Mario Santo Domingo');
+VALUES('phx749', 'Gladiolus communis L.', 0, 21, 14, 2, 'Salvat', 'Biblioteca Publica Julio Mario Santo Domingo','000013');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('dog808', 'Health Care', 0, 36, 10, 4, 'Norma', 'El Tintal Manuel Zapata Olivella');
+VALUES('dog808', 'Health Care', 0, 36, 10, 4, 'Norma', 'El Tintal Manuel Zapata Olivella',000009);
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('ocf581', 'Helianthus nuttallii Torr.', 0, 48, 14, 3, 'Norma', 'Virgilio Barco');
+VALUES('ocf581', 'Helianthus nuttallii Torr.', 0, 48, 14, 3, 'Norma', 'virgilio barco','000008');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('yls048', 'Ischaemum timorense Kunth', 1, 18, 4, 4, 'Norma', 'Biblioteca Publica Lago Timiza');
+VALUES('yls048', 'Ischaemum timorense Kunth', 1, 18, 4, 4, 'Norma', 'Biblioteca Publica Lago timiza','000002');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('wrn003', 'Loeflingia squarrosa Nutt. ssp. squarrosa', 0, 126, 8, 5, 'Norma', 'Biblioteca Publica Parque El Tunal');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('grj820', 'Manihot catingae Ule', 1, 131, 2, 4, 'Norma', 'Virgilio Barco');
+VALUES('grj820', 'Manihot catingae Ule', 1, 131, 2, 4, 'Norma', 'virgilio barco','000008');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('qol739', 'Miscellaneous', 1, 110, 14, 5, 'Norma', 'Luis Angel Arango');
+VALUES('qol739', 'Miscellaneous', 1, 110, 14, 5, 'Norma', 'Luis Angel arango','000006');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('rwq600', 'Pachira aquatica Aubl.', 0, 24, 14, 1, 'Salvat', 'Biblioteca Nacional');
+VALUES('rwq600', 'Pachira aquatica Aubl.', 0, 24, 14, 1, 'Salvat', 'Biblioteca Nacional','000011');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('xwb370', 'Pedicularis bracteosa Benth. var. bracteosa', 1, 87, 11, 4, 'Norma', 'Biblioteca Publica Lago Timiza');
+VALUES('xwb370', 'Pedicularis bracteosa Benth. var. bracteosa', 1, 87, 11, 4, 'Norma', 'Biblioteca Publica Lago timiza','000002');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('hbt165', 'Pinus pinea L.', 1, 18, 6, 5, 'Norma', 'Virgilio Barco');
+VALUES('hbt165', 'Pinus pinea L.', 1, 18, 6, 5, 'Norma', 'virgilio barco','000008');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('mfl921', 'Pteris irregularis Kaulf.', 1, 81, 13, 4, 'Norma', 'Biblioteca Publica El parque');
+VALUES('mfl921', 'Pteris irregularis Kaulf.', 1, 81, 13, 4, 'Norma', 'Biblioteca Publica El parque','000015');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('lyz889', 'Quercus cedrosensis C.H. Mull.', 0, 50, 5, 2, 'Norma', 'Biblioteca Publica Julio Mario Santo Domingo');
+VALUES('lyz889', 'Quercus cedrosensis C.H. Mull.', 0, 50, 5, 2, 'Norma', 'Biblioteca Publica Julio Mario Santo Domingo','000013');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('fak833', 'Rhynchospora megaplumosa Bridges y Orzell', 0, 26, 12, 3, 'Salvat', 'Virgilio Barco');
+VALUES('fak833', 'Rhynchospora megaplumosa Bridges y Orzell', 0, 26, 12, 3, 'Salvat', 'virgilio barco','000008');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('kuh384', 'Scutellaria elliptica Muhl.', 1, 132, 12, 1, 'Salvat', 'El Tintal Manuel Zapata Olivella');
+VALUES('kuh384', 'Scutellaria elliptica Muhl.', 1, 132, 12, 1, 'Salvat', 'El Tintal Manuel Zapata Olivella',000009);
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('ckn018', 'Sphaeromeria compacta (H.M. Hall)', 0, 57, 10, 1, 'Salvat', 'Biblioteca Publica El parque');
+VALUES('ckn018', 'Sphaeromeria compacta (H.M. Hall)', 0, 57, 10, 1, 'Salvat', 'Biblioteca Publica El parque','000015');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('omw135', 'Ciudad de Ceniza', 1, 116, 13, 2, 'Planeta', 'Biblioteca Publica Julio Mario Santo Domingo');
+VALUES('omw135', 'Ciudad de Ceniza', 1, 116, 13, 2, 'Planeta', 'Biblioteca Publica Julio Mario Santo Domingo','000013');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('mge311', 'Technology', 0, 126, 5, 3, 'Norma', 'Biblioteca Nacional');*/
+VALUES('mge311', 'Technology', 0, 126, 5, 3, 'Norma', 'Biblioteca Nacional','000011');
+*/
 
 /*Categorias*/
 INSERT INTO categorias(nombre, libro) VALUES ('Novela','pgk292');
@@ -314,9 +316,9 @@ VALUES('Retraso', 'El libro fue entregado despues de la fecha maxima');
 INSERT INTO causas(id, descripcion)
 VALUES('Perdida', 'El libro fue perdido por el afiliado');
 INSERT INTO causas(id, descripcion)
-VALUES('Daño leve', 'El libro presenta un ligero daño, no es necesario reemplazo');
+VALUES('DaÃ±o leve', 'El libro presenta un ligero daÃ±o, no es necesario reemplazo');
 INSERT INTO causas(id, descripcion)
-VALUES('Daño grave', 'El libro presenta un gran daño, solicita reemplazo');
+VALUES('DaÃ±o grave', 'El libro presenta un gran daÃ±o, solicita reemplazo');
 
 /*Poblar multas*/
 INSERT INTO multas(causa, prestamo, valor)
@@ -326,5 +328,5 @@ VALUES('Perdida', 2, 100000);
 INSERT INTO multas(causa, prestamo, valor)
 VALUES('Perdida', 3, 200000);
 INSERT INTO multas(causa, prestamo, valor)
-VALUES('Daño leve', 4, 50000);
+VALUES('DaÃ±o leve', 4, 50000);
 
