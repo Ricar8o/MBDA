@@ -197,14 +197,16 @@ DECLARE
     b varchar (50);
     c number (1);
     d number (1);
+    COD NUMBER(20);
 BEGIN
-    SELECT SYSDATE INTO :new.fechaPrestamo FROM DUAL; 
+    SELECT SYSDATE INTO :new.fecha FROM DUAL; 
     SELECT codigo INTO af FROM afiliados WHERE :new.afiliado = codigo;
     SELECT empleado INTO emp FROM bibliotecarios WHERE :new.empleado = empleado;
     SELECT codigo,biblioteca INTO lib,a FROM LIBROS WHERE :new.libro = codigo;
     SELECT biblioteca INTO b FROM empleados WHERE :new.empleado = codigo;
     SELECT bloqueado INTO c FROM afiliados WHERE :new.afiliado = codigo;
     SELECT libre INTO d FROM LIBROS WHERE :new.libro = codigo; 
+    SELECT MAX(CODIGO) INTO COD FROM PRESTAMOS;
     IF ( af is null) THEN
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado no existe');
     END IF;
@@ -223,6 +225,11 @@ BEGIN
     IF ( d = 1) THEN 
         RAISE_APPLICATION_ERROR(-20032, 'El libro ya se encuentra prestado');
     END IF;
+    IF (COD IS NULL) THEN
+        COD:=0;
+    END IF;
+    :NEW.CODIGO:= COD + 1;
+    SELECT SYSDATE + DIASPRESTAMO INTO :NEW.FECHAENTREGA FROM LIBROS WHERE CODIGO= :NEW.LIBRO;
 END;
 
 /*Inserta las etiquetas de un libro a los intereses del usuario caundo este lo saca en prestamo*/
