@@ -1,18 +1,18 @@
 /*Xpoblar*/
-DELETE telefonos;
 DELETE etiquetas;
+DELETE autores;
+DELETE libros;
+DELETE categorias;
 DELETE empleados;
-DELETE afiliados;
+DELETE intereses;
 DELETE afiliados_oro;
 DELETE afiliados_plata;
-DELETE intereses;
-DELETE autores;
-DELETE categorias;
-DELETE libros;
-DELETE causas;
+DELETE afiliados;
 DELETE multas;
+DELETE causas;
 DELETE prestamos;
 DELETE reservas;
+DELETE telefonos;
 DELETE bibliotecas;
 
 /*Xtablas*/
