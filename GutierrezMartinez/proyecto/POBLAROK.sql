@@ -140,12 +140,14 @@ INSERT INTO empleados(nombre, cedula, fechaVinculacion, salario, correo, telefon
 VALUES('Nerty Pinzon', 1096516069, DATE '2018-05-18', 936092, 'nparmley9@ebay.co.uk', '3043299328', 'Las Ferias', 'a');
 INSERT INTO empleados(nombre, cedula, fechaVinculacion, salario, correo, telefono, biblioteca, tipo)
 VALUES('Hernan Herrera', 1102234212, DATE '2018-05-18', 936092, 'hernan@ebay.co.uk', '3041235428', 'Las Ferias', 'b');
+INSERT INTO empleados(nombre, cedula, fechaVinculacion, salario, correo, telefono, biblioteca, tipo)
+VALUES('Jhonatan Cristopher', 1192235782, DATE '2018-05-18', 334192, 'jhonatanC@ebay.co.uk', '3142535228', 'La Victoria', 'a');
 
 /*libros*/
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('aaa001' ,'Cancion de Hielo y Fuego: Choque de Reyes', 0, 47, 13, 5, 'Penguin Random House', 'Virgilio Barco', '000008');
+VALUES('pgk292' ,'Cancion de Hielo y Fuego: Choque de Reyes', 0, 47, 13, 5, 'Penguin Random House', 'Virgilio Barco', '000008');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('aaa002' ,'Cancion de Hielo y Fuego: Tormenta de Espadas', 0, 33, 15, 4, 'Penguin Random House', 'Biblioteca Publica Lago Timiza', '000002');
+VALUES('ago871' ,'Cancion de Hielo y Fuego: Tormenta de Espadas', 0, 33, 15, 4, 'Penguin Random House', 'Biblioteca Publica Lago Timiza', '000002');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('aba001','Antennaria howellii Greene ssp. howellii', 1, 29, 10, 5, 'Norma', 'Biblioteca Publica El parque', '000015');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
@@ -153,266 +155,154 @@ VALUES('aca001' ,'Basic Industries', 0, 149, 9, 3, 'Norma', 'Biblioteca Publica 
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('ada001' , 'Basic Industries', 1, 148, 7, 3, 'Norma', 'Biblioteca Publica Julio Mario Santo Domingo', '000013');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('aaa003' , 'El Caballero Errante', 0, 72, 10, 5, 'Penguin Random House', 'Luis Angel Arango', '000006');
+VALUES('int796' , 'El Caballero Errante', 0, 72, 10, 5, 'Penguin Random House', 'Luis Angel Arango', '000006');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('aaa004' , 'Festin de cuervos', 0, 143, 9, 3, 'Penguin Random House', 'Las Ferias', '000019');
+VALUES('hcc368' , 'Festin de cuervos', 0, 143, 9, 3, 'Penguin Random House', 'Las Ferias', '000019');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('aea001', 'Capital Goods', 0, 114, 9, 1, 'Salvat', 'Biblioteca Nacional', '000011');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('kvn691', 'Carex radfordii Gaddy', 0, 24, 10, 1, 'Norma', 'La Victoria','000021');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
 VALUES('afa001', 'Celmisia Cass.', 0, 62, 14, 1, 'Norma', 'El Tintal Manuel Zapata Olivella', '000009');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('aaa005', 'Cancion de Hielo y Fuego: Choque de Reyes', 0, 115, 8, 2, 'Penguin Random House', 'Biblioteca Nacional', '000011');
+VALUES('bza378', 'Cancion de Hielo y Fuego: Choque de Reyes', 0, 115, 8, 2, 'Penguin Random House', 'Biblioteca Nacional', '000011');
 INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
-VALUES('aja001', 'Ciudad de Cristal', 1, 139, 9, 5, 'Planeta', 'Virgilio Barco', '000017');
-/*INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Ciudad de Hueso', 0, 72, 7, 1, 'Planeta', 'Virgilio Barco');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Consumer Services', 1, 122, 2, 3, 'Norma', 'Biblioteca Publica Lago Timiza');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Craniolaria L.', 1, 90, 9, 2, 'Norma', 'Biblioteca Nacional');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Cyrilla Garden ex L.', 0, 131, 9, 2, 'Norma', 'La Victoria');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Cyrilla parvifolia Raf.', 0, 59, 9, 5, 'Norma', 'Biblioteca Publica Lago Timiza');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Draw', 0, 137, 6, 1, 'Norma', 'Biblioteca Publica Parque El Tunal');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Energy', 1, 116, 4, 5, 'Salvat', 'Biblioteca Nacional');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Finance', 0, 65, 8, 3, 'Norma', 'Virgilio Barco');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Finance', 0, 44, 2, 1, 'Norma', 'Luis Angel Arango');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('France', 1, 133, 11, 4, 'Norma', 'Biblioteca Nacional');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Gladiolus communis L.', 0, 21, 14, 2, 'Salvat', 'Biblioteca Publica Julio Mario Santo Domingo');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Health Care', 0, 36, 10, 4, 'Norma', 'El Tintal Manuel Zapata Olivella');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Helianthus nuttallii Torr.', 0, 48, 14, 3, 'Norma', 'Virgilio Barco');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Ischaemum timorense Kunth', 1, 18, 4, 4, 'Norma', 'Biblioteca Publica Lago Timiza');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Loeflingia squarrosa Nutt. ssp. squarrosa', 0, 126, 8, 5, 'Norma', 'Biblioteca Publica Parque El Tunal');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Manihot catingae Ule', 1, 131, 2, 4, 'Norma', 'Virgilio Barco');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Miscellaneous', 1, 110, 14, 5, 'Norma', 'Luis Angel Arango');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Pachira aquatica Aubl.', 0, 24, 14, 1, 'Salvat', 'Biblioteca Nacional');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Pedicularis bracteosa Benth. var. bracteosa', 1, 87, 11, 4, 'Norma', 'Biblioteca Publica Lago Timiza');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Pinus pinea L.', 1, 18, 6, 5, 'Norma', 'Virgilio Barco');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Pteris irregularis Kaulf.', 1, 81, 13, 4, 'Norma', 'Biblioteca Publica El parque');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Quercus cedrosensis C.H. Mull.', 0, 50, 5, 2, 'Norma', 'Biblioteca Publica Julio Mario Santo Domingo');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Rhynchospora megaplumosa Bridges y Orzell', 0, 26, 12, 3, 'Salvat', 'Virgilio Barco');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Scutellaria elliptica Muhl.', 1, 132, 12, 1, 'Salvat', 'El Tintal Manuel Zapata Olivella');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Sphaeromeria compacta (H.M. Hall)', 0, 57, 10, 1, 'Salvat', 'Biblioteca Publica El parque');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Ciudad de Ceniza', 1, 116, 13, 2, 'Planeta', 'Biblioteca Publica Julio Mario Santo Domingo');
-INSERT INTO libros(nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca)
-VALUES('Technology', 0, 126, 5, 3, 'Norma', 'Biblioteca Nacional');*/
+VALUES('tok337', 'Ciudad de Cristal', 1, 139, 9, 5, 'Planeta', 'Virgilio Barco', '000017');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('jdh686', 'Ciudad de Hueso', 0, 72, 7, 1, 'Planeta', 'Virgilio Barco','000017');
+/*
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('mtv904', 'Consumer Services', 1, 122, 2, 3, 'Norma', 'Biblioteca Publica Lago Timiza');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('mpc505', 'Craniolaria L.', 1, 90, 9, 2, 'Norma', 'Biblioteca Nacional');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('kgp432', 'Cyrilla Garden ex L.', 0, 131, 9, 2, 'Norma', 'La Victoria');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('hih469', 'Cyrilla parvifolia Raf.', 0, 59, 9, 5, 'Norma', 'Biblioteca Publica Lago Timiza');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('jof957', 'Draw', 0, 137, 6, 1, 'Norma', 'Biblioteca Publica Parque El Tunal');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('ocy073', 'Energy', 1, 116, 4, 5, 'Salvat', 'Biblioteca Nacional');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('jbb187', 'Finance', 0, 65, 8, 3, 'Norma', 'Virgilio Barco');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('nyg101', 'Finance', 0, 44, 2, 1, 'Norma', 'Luis Angel Arango');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('tbq800', 'France', 1, 133, 11, 4, 'Norma', 'Biblioteca Nacional');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('phx749', 'Gladiolus communis L.', 0, 21, 14, 2, 'Salvat', 'Biblioteca Publica Julio Mario Santo Domingo');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('dog808', 'Health Care', 0, 36, 10, 4, 'Norma', 'El Tintal Manuel Zapata Olivella');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('ocf581', 'Helianthus nuttallii Torr.', 0, 48, 14, 3, 'Norma', 'Virgilio Barco');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('yls048', 'Ischaemum timorense Kunth', 1, 18, 4, 4, 'Norma', 'Biblioteca Publica Lago Timiza');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('wrn003', 'Loeflingia squarrosa Nutt. ssp. squarrosa', 0, 126, 8, 5, 'Norma', 'Biblioteca Publica Parque El Tunal');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('grj820', 'Manihot catingae Ule', 1, 131, 2, 4, 'Norma', 'Virgilio Barco');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('qol739', 'Miscellaneous', 1, 110, 14, 5, 'Norma', 'Luis Angel Arango');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('rwq600', 'Pachira aquatica Aubl.', 0, 24, 14, 1, 'Salvat', 'Biblioteca Nacional');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('xwb370', 'Pedicularis bracteosa Benth. var. bracteosa', 1, 87, 11, 4, 'Norma', 'Biblioteca Publica Lago Timiza');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('hbt165', 'Pinus pinea L.', 1, 18, 6, 5, 'Norma', 'Virgilio Barco');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('mfl921', 'Pteris irregularis Kaulf.', 1, 81, 13, 4, 'Norma', 'Biblioteca Publica El parque');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('lyz889', 'Quercus cedrosensis C.H. Mull.', 0, 50, 5, 2, 'Norma', 'Biblioteca Publica Julio Mario Santo Domingo');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('fak833', 'Rhynchospora megaplumosa Bridges y Orzell', 0, 26, 12, 3, 'Salvat', 'Virgilio Barco');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('kuh384', 'Scutellaria elliptica Muhl.', 1, 132, 12, 1, 'Salvat', 'El Tintal Manuel Zapata Olivella');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('ckn018', 'Sphaeromeria compacta (H.M. Hall)', 0, 57, 10, 1, 'Salvat', 'Biblioteca Publica El parque');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('omw135', 'Ciudad de Ceniza', 1, 116, 13, 2, 'Planeta', 'Biblioteca Publica Julio Mario Santo Domingo');
+INSERT INTO libros(codigo, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
+VALUES('mge311', 'Technology', 0, 126, 5, 3, 'Norma', 'Biblioteca Nacional');*/
 
-/**/
-INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa001');
-INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa005');
-INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa002');
-INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa004');
-INSERT INTO categorias(nombre, libro) VALUES ('Novela','aaa003');
-INSERT INTO categorias(nombre, libro) VALUES ('Novela','aja001');
-INSERT INTO categorias(nombre, libro) VALUES ('Aventura','aja001');
-INSERT INTO categorias(nombre, libro) VALUES ('Fantasia','aja001');
+/*Categorias*/
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','pgk292');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','bza378');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','ago871');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','hcc368');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','int796');
+INSERT INTO categorias(nombre, libro) VALUES ('Novela','tok337');
+INSERT INTO categorias(nombre, libro) VALUES ('Aventura','tok337');
+INSERT INTO categorias(nombre, libro) VALUES ('Fantasia','tok337');
 
 /*autores*/
-INSERT INTO autores(libro, nombre)
-VALUES('pgk292', 'George R.R. Martin');
-
-INSERT INTO autores(libro, nombre)
-VALUES('ago871', 'George R.R. Martin');
-
-INSERT INTO autores(libro, nombre)
-VALUES('imf806', 'Bucky McCaskill');
-
-INSERT INTO autores(libro, nombre)
-VALUES('tki342', 'Gianna Andreas');
-
-INSERT INTO autores(libro, nombre)
-VALUES('qmv007', 'Christiane Linklet');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000001', 'George R.R. Martin');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000002', 'George R.R. Martin');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000003', 'Letisha Hovenden');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000004', 'Letisha Hovenden');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000005', 'Beniamino Waldock');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000006', 'Letisha Hovenden');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000007', 'George R.R. Martin');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000008', 'Cassandra Clare');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000009', 'Cassandra Clare');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000010', 'Rubetta Larwood');
-
-INSERT INTO autores(libro, nombre)
-VALUES('000011', 'Brittany Greir');
-
-INSERT INTO autores(libro, nombre)
-VALUES('kgp432', 'Brittany Greir');
-
-INSERT INTO autores(libro, nombre)
-VALUES('hih469', 'Rubetta Larwood');
-
-INSERT INTO autores(libro, nombre)
-VALUES('jof957', 'Bucky McCaskill');
-
-INSERT INTO autores(libro, nombre)
-VALUES('ocy073', 'Gianna Andreas');
-
-INSERT INTO autores(libro, nombre)
-VALUES('jbb186', 'Beniamino Waldock');
-
-INSERT INTO autores(libro, nombre)
-VALUES('jbb187', 'Christiane Linklet');
-
-INSERT INTO autores(libro, nombre)
-VALUES('nyg100', 'Christiane Linklet');
-
-INSERT INTO autores(libro, nombre)
-VALUES('nyg101', 'Beniamino Waldock');
-
-INSERT INTO autores(libro, nombre)
-VALUES('tbq800', 'Letti Barwis');
-
-INSERT INTO autores(libro, nombre)
-VALUES('phx749', 'Letisha Hovenden');
-
-INSERT INTO autores(libro, nombre)
-VALUES('dog808', 'Krystyna Falconer-Taylor');
-
-INSERT INTO autores(libro, nombre)
-VALUES('ocf581', 'Rolfe Mithun');
-
-INSERT INTO autores(libro, nombre)
-VALUES('yls048', 'Vanni Blinder');
-
-INSERT INTO autores(libro, nombre)
-VALUES('wrn003', 'Lynea Ivell');
-
-/* INSERT QUERY NO: 31 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'grj820', 'Flori Woltering'
-);
-
-/* INSERT QUERY NO: 32 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'qol739', 'Brittany Greir'
-);
-
-/* INSERT QUERY NO: 33 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'rwq600', 'Rubetta Larwood'
-);
-
-/* INSERT QUERY NO: 34 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'xwb370', 'Bucky McCaskill'
-);
-
-/* INSERT QUERY NO: 35 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'hbt165', 'Gianna Andreas'
-);
-
-/* INSERT QUERY NO: 36 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'mfl921', 'Christiane Linklet'
-);
-
-/* INSERT QUERY NO: 37 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'lyz889', 'Beniamino Waldock'
-);
-
-/* INSERT QUERY NO: 38 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'fak833', 'Letti Barwis'
-);
-
-/* INSERT QUERY NO: 39 */
-INSERT INTO autores(libro, nombre)
-VALUES
-(
-'kuh384', 'Letisha Hovenden'
-);
-
-/* INSERT QUERY NO: 40 */
+INSERT INTO autores(libro, nombre)VALUES('pgk292', 'George R.R. Martin');
+INSERT INTO autores(libro, nombre)VALUES('ago871', 'George R.R. Martin');
+INSERT INTO autores(libro, nombre)VALUES('imf806', 'Bucky McCaskill');
+INSERT INTO autores(libro, nombre)VALUES('tki342', 'Gianna Andreas');
+INSERT INTO autores(libro, nombre)VALUES('qmv007', 'Christiane Linklet');
+INSERT INTO autores(libro, nombre)VALUES('int796', 'George R.R. Martin');
+INSERT INTO autores(libro, nombre)VALUES('hcc368', 'George R.R. Martin');
+INSERT INTO autores(libro, nombre)VALUES('hyw911', 'Letisha Hovenden');
+INSERT INTO autores(libro, nombre)VALUES('ilx698', 'Letisha Hovenden');
+INSERT INTO autores(libro, nombre)VALUES('kvn691', 'Beniamino Waldock');
+INSERT INTO autores(libro, nombre)VALUES('jwq121', 'Letisha Hovenden');
+INSERT INTO autores(libro, nombre)VALUES('bza378', 'George R.R. Martin');
+INSERT INTO autores(libro, nombre)VALUES('tok337', 'Cassandra Clare');
+INSERT INTO autores(libro, nombre)VALUES('jdh686', 'Cassandra Clare');
+/*
+INSERT INTO autores(libro, nombre)VALUES('mtv904', 'Rubetta Larwood');
+INSERT INTO autores(libro, nombre)VALUES('mpc505', 'Brittany Greir');
+INSERT INTO autores(libro, nombre)VALUES('kgp432', 'Brittany Greir');
+INSERT INTO autores(libro, nombre)VALUES('hih469', 'Rubetta Larwood');
+INSERT INTO autores(libro, nombre)VALUES('jof957', 'Bucky McCaskill');
+INSERT INTO autores(libro, nombre)VALUES('ocy073', 'Gianna Andreas');
+INSERT INTO autores(libro, nombre)VALUES('jbb186', 'Beniamino Waldock');
+INSERT INTO autores(libro, nombre)VALUES('jbb187', 'Christiane Linklet');
+INSERT INTO autores(libro, nombre)VALUES('nyg100', 'Christiane Linklet');
+INSERT INTO autores(libro, nombre)VALUES('nyg101', 'Beniamino Waldock');
+INSERT INTO autores(libro, nombre)VALUES('tbq800', 'Letti Barwis');
+INSERT INTO autores(libro, nombre)VALUES('phx749', 'Letisha Hovenden');
+INSERT INTO autores(libro, nombre)VALUES('dog808', 'Krystyna Falconer-Taylor');
+INSERT INTO autores(libro, nombre)VALUES('ocf581', 'Rolfe Mithun');
+INSERT INTO autores(libro, nombre)VALUES('yls048', 'Vanni Blinder');
+INSERT INTO autores(libro, nombre)VALUES('wrn003', 'Lynea Ivell');
+INSERT INTO autores(libro, nombre)VALUES('grj820', 'Flori Woltering');
+INSERT INTO autores(libro, nombre)VALUES('qol739', 'Brittany Greir');
+INSERT INTO autores(libro, nombre)VALUES('rwq600', 'Rubetta Larwood');
+INSERT INTO autores(libro, nombre)VALUES('xwb370', 'Bucky McCaskill');
+INSERT INTO autores(libro, nombre)VALUES('hbt165', 'Gianna Andreas');
+INSERT INTO autores(libro, nombre)VALUES('mfl921', 'Christiane Linklet');
+INSERT INTO autores(libro, nombre)VALUES('lyz889', 'Beniamino Waldock');
+INSERT INTO autores(libro, nombre)VALUES('fak833', 'Letti Barwis');
+INSERT INTO autores(libro, nombre)VALUES('kuh384', 'Letisha Hovenden');
 INSERT INTO autores(libro, nombre)VALUES('ckn018', 'Krystyna Falconer-Taylor');
 INSERT INTO autores(libro, nombre)VALUES('omw135', 'Cassandra Clare');
 INSERT INTO autores(libro, nombre)VALUES('mge311', 'Rubetta Larwood');
-
-/*Categorias*/
+*/
 
 /*Poblar prestamo*/
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
 VALUES(1, DATE '2018-03-01', DATE '2018-03-04', 'aaa000', 'akb509', 'ago871');
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
-VALUES(2, DATE '2018-03-02', DATE '2018-03-05', 'aaa001', 'kdx604', 'jdh686');
+VALUES(2, DATE '2018-03-02', DATE '2018-03-05', 'pgk292', 'kdx604', 'jdh686');
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
-VALUES(3, DATE '2018-02-22', DATE '2018-02-26', 'aaa002', 'fqs694', 'omw135');
+VALUES(3, DATE '2018-02-22', DATE '2018-02-26', 'ago871', 'fqs694', 'omw135');
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
-VALUES(4, DATE '2018-02-22', DATE '2018-02-26', 'aaa003', 'hfi981', 'hcc368');
+VALUES(4, DATE '2018-02-22', DATE '2018-02-26', 'int796', 'hfi981', 'hcc368');
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
-VALUES(5, DATE '2018-02-25', DATE '2018-03-02', 'aaa004', 'msg954', 'wrn003');
+VALUES(5, DATE '2018-02-25', DATE '2018-03-02', 'hcc368', 'msg954', 'wrn003');
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
-VALUES(6, DATE '2018-03-27', DATE '2018-03-03', 'aaa005', 'syc615', 'pgk292');
+VALUES(6, DATE '2018-03-27', DATE '2018-03-03', 'bza378', 'syc615', 'pgk292');
 
 /*Poblar reservas*/
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(1, DATE '2018-03-05', 'imu336', 'tki342', DATE '2018-03-10', 'aaa002');
+VALUES(1, DATE '2018-03-05', 'imu336', 'tki342', DATE '2018-03-10', 'ago871');
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(2, DATE '2018-03-07', 'ett783', 'ckn018', DATE '2018-03-10', 'aaa003');
+VALUES(2, DATE '2018-03-07', 'ett783', 'ckn018', DATE '2018-03-10', 'int796');
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(3, DATE '2018-02-27', 'lud400', 'mpc505', DATE '2018-03-02', 'aaa004');
+VALUES(3, DATE '2018-02-27', 'lud400', 'mpc505', DATE '2018-03-02', 'hcc368');
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(4, DATE '2018-02-28', 'gof451', 'kgp432', DATE '2018-03-03', 'aaa005');
+VALUES(4, DATE '2018-02-28', 'gof451', 'kgp432', DATE '2018-03-03', 'bza378');
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(5, DATE '2018-02-26', 'akb509', 'hbt165', DATE '2018-03-02', 'aaa006');
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
@@ -437,3 +327,4 @@ INSERT INTO multas(causa, prestamo, valor)
 VALUES('Perdida', 3, 200000);
 INSERT INTO multas(causa, prestamo, valor)
 VALUES('Daño leve', 4, 50000);
+
