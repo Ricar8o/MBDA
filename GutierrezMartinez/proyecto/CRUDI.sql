@@ -1,5 +1,5 @@
 CREATE OR REPLACE PACKAGE BODY PC_PRESTAMO IS 
-  PROCEDURE AD_CONTENIDO (xempleado IN VARCHAR, xlibro IN VARCHAR, xafiliado IN VARCHAR) IS
+  PROCEDURE AD_PRESTAMO (xempleado IN VARCHAR, xlibro IN VARCHAR, xafiliado IN VARCHAR) IS
     BEGIN
         INSERT INTO PRESTAMOS(empleado,libro,afiliado) values(xempleado, xlibro, xafiliado);
         COMMIT;
@@ -11,4 +11,4 @@ CREATE OR REPLACE PACKAGE BODY PC_PRESTAMO IS
 END PC_PRESTAMO;
 
 
-EXECUTE pc_prestamo.ad_contenido('000018','pgk292','000001');
+EXECUTE pc_prestamo.ad_PRESTAMO('000018','pgk292','000001');
