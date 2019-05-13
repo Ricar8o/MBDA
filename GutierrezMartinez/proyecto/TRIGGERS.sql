@@ -60,7 +60,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar el codigo de un afiliado');
 END;
 /
-/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃ­a por su tipo,
+/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÂ­a por su tipo,
 a la nueva tabla dada por su nuevo tipo*/
 CREATE OR REPLACE TRIGGER MO_AFILIADO2
 BEFORE UPDATE OF TIPO ON AFILIADOS
@@ -146,7 +146,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar estos datos del empleado');
 END;
 /
-/*Se asegura que el archivista que registra el libro estÃ© asignado a esa biblioteca*/
+/*Se asegura que el archivista que registra el libro estÃƒÂ© asignado a esa biblioteca*/
 CREATE OR REPLACE TRIGGER AD_LIBRO1
 BEFORE INSERT ON LIBROS
 FOR EACH ROW
@@ -172,7 +172,7 @@ BEGIN
     SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
     :new.fecha_limite := fecha_entrega(:new.afiliado , :new.libro);
     IF ( a = 1 ) THEN
-        RAISE_APPLICATION_ERROR(-20032, 'El libro se encuentrÃ¡ ocupado.');
+        RAISE_APPLICATION_ERROR(-20032, 'El libro se encuentrÃƒÂ¡ ocupado.');
     END IF;
     IF ( c = 1) THEN 
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
@@ -227,7 +227,7 @@ DECLARE
     res number(6);
     COD NUMBER(20);
 BEGIN
-    SELECT SYSDATE INTO :new.fechaPrestamo FROM DUAL; 
+    SELECT SYSDATE INTO :new.fecha FROM DUAL; 
     SELECT codigo INTO af FROM afiliados WHERE :new.afiliado = codigo;
     SELECT codigo,biblioteca INTO lib,a FROM LIBROS WHERE :new.libro = codigo;
     SELECT bloqueado INTO c FROM afiliados WHERE :new.afiliado = codigo;
@@ -257,8 +257,8 @@ BEGIN
     END IF;
     IF (COD IS NULL) THEN
         COD:=0;
-     END IF;
-     :NEW.CODIGO:= COD + 1;
+    END IF;
+    :NEW.CODIGO:= COD + 1;
 END;
 /
 CREATE OR REPLACE PROCEDURE nuevo_prestamo(afiliado IN varchar) IS
@@ -290,3 +290,4 @@ BEGIN
        INSERT INTO multas (causa, prestamo, valor) VALUES ('Retraso' , :old.codigo, a*b);
     END IF;
 END;
+
