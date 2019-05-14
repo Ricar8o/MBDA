@@ -3,7 +3,7 @@
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
 VALUES('Luis Angel Arango', 'Cl. 11 #4-14', '52513', 'LuisAngelA@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
-VALUES('Virgilio Barco', 'Avenida Carrera 60 #57 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ 60', '215819', 'VirgilioBarco@bibliomail.com');
+VALUES('Virgilio Barco', 'Avenida Carrera 60 #57 N 60', '215819', 'VirgilioBarco@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
 VALUES('El Tintal Manuel Zapata Olivella', 'Ak. 86 #6c-09', '461569', 'ElTintalMZO@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
@@ -291,6 +291,7 @@ INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000013', 'angeles');
 INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000006', 'fantasia');
 INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000007', 'magia');
 /*Poblar prestamo*/
+/*
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
 VALUES(1, DATE '2018-03-01', DATE '2018-03-04', 'aaa000', 'akb509', 'ago871');
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
@@ -303,8 +304,9 @@ INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, lib
 VALUES(5, DATE '2018-02-25', DATE '2018-03-02', 'hcc368', 'msg954', 'wrn003');
 INSERT INTO prestamos(codigo, fecha, fechaMaximaEntrega, empleado, afiliado, libro)
 VALUES(6, DATE '2018-03-27', DATE '2018-03-03', 'bza378', 'syc615', 'pgk292');
-
+*/
 /*Poblar reservas*/
+/*
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(1, DATE '2018-03-05', 'imu336', 'tki342', DATE '2018-03-10', 'ago871');
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
@@ -317,16 +319,16 @@ INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(5, DATE '2018-02-26', 'akb509', 'hbt165', DATE '2018-03-02', 'aaa006');
 INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
 VALUES(6, DATE '2018-03-07', 'syc615', 'yls048', DATE '2018-03-11', 'aaa007');
-
+*/
 /*Poblar causas*/
 INSERT INTO causas(id, descripcion)
 VALUES('Retraso', 'El libro fue entregado despues de la fecha maxima');
 INSERT INTO causas(id, descripcion)
 VALUES('Perdida', 'El libro fue perdido por el afiliado');
 INSERT INTO causas(id, descripcion)
-VALUES('Dano leve', 'El libro presenta un ligero daÃƒÆ’Ã‚Â±o, no es necesario reemplazo');
+VALUES('Dano leve', 'El libro presenta un ligero dano, no es necesario reemplazo');
 INSERT INTO causas(id, descripcion)
-VALUES('Dano grave', 'El libro presenta un gran daÃƒÆ’Ã‚Â±o, solicita reemplazo');
+VALUES('Dano grave', 'El libro presenta un gran dano, solicita reemplazo');
 
 /*Poblar multas*/
 INSERT INTO multas(causa, prestamo, valor)
