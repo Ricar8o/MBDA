@@ -39,7 +39,7 @@ apariciones number(3));
 
 /*CRUD libro*/
 CREATE TABLE libros(
-codigo VARCHAR(6) NOT NULL PRIMARY KEY,
+codigo varchar(6) NOT NULL PRIMARY KEY,
 nombre varchar(120),
 libre NUMBER(1),
 precio NUMBER(6),
@@ -47,18 +47,19 @@ diasPrestamo NUMBER(2),
 precioDiaDemora NUMBER(6),
 editorial varchar(40),
 biblioteca varchar(50),
-archivista varchar(6));
+archivista varchar(6),
+direccion varchar(6));
 
 CREATE TABLE etiquetas(
-libro VARCHAR(15) NOT NULL,
+libro varchar(6) NOT NULL,
 palabra varchar(10) NOT NULL);
 
 CREATE TABLE autores(
-libro VARCHAR(15) NOT NULL,
+libro varchar(6) NOT NULL,
 nombre varchar(30) NOT NULL);
 
 CREATE TABLE categorias(
-libro VARCHAR(6) NOT NULL,
+libro varchar(6) NOT NULL,
 nombre varchar(20) NOT NULL);
 
 /*CRUD empleado*/
@@ -87,7 +88,7 @@ CREATE TABLE reservas(
 codigo  NUMBER(6) NOT NULL PRIMARY KEY,
 fecha DATE,
 afiliado varchar(6) NOT NULL,
-libro varchar(15) NOT NULL,
+libro varchar(6) NOT NULL,
 fecha_limite DATE,
 empleado varchar(6));
 
@@ -96,7 +97,7 @@ CREATE TABLE prestamos(
 codigo NUMBER(6) NOT NULL PRIMARY KEY,
 fecha DATE,
 afiliado varchar(6) NOT NULL,
-libro varchar(15) NOT NULL,
+libro varchar(6) NOT NULL,
 empleado varchar(6)NOT NULL,
 fechaMaximaEntrega DATE,
 fechaEntrega DATE);
