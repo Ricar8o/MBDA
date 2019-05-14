@@ -1,4 +1,4 @@
-/**Crud BIBLIOTECA*/
+/*Crud BIBLIOTECA*/
 ALTER TABLE telefonos ADD CONSTRAINT CH_TELEFONOS
 CHECK (LENGTH(TRIM(TRANSLATE(telefono, '0123456789', ' '))) = 0);
 ALTER TABLE bibliotecas ADD CONSTRAINT CH_BIBLIOTECA
@@ -59,9 +59,9 @@ CHECK (precioDiaDemora >= 0);
 ALTER TABLE libros ADD CONSTRAINT CH_LIBRO4
 CHECK (libre IN (1 , 0));
 ALTER TABLE libros ADD CONSTRAINT CH_LIBRO5
-CHECK (LENGTH(TRIM(TRANSLATE(SUBSTR(codigo,1,3), 'abcdefghijklmnopqrstuvwxyz', ' '))) = 0);
+CHECK (LENGTH(TRIM(TRANSLATE(SUBSTR(direccion,1,3), 'abcdefghijklmnopqrstuvwxyz', ' '))) = 0);
 ALTER TABLE libros ADD CONSTRAINT CH_LIBRO6
-CHECK (LENGTH(TRIM(TRANSLATE(SUBSTR(codigo,4,3), '0123456789', ' '))) = 0);
+CHECK (LENGTH(TRIM(TRANSLATE(SUBSTR(direccion,4,3), '0123456789', ' '))) = 0);
 
 /*CRUD reserva*/
 
