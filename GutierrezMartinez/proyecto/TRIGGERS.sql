@@ -60,7 +60,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar el codigo de un afiliado');
 END;
 /
-/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a por su tipo,
+/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a por su tipo,
 a la nueva tabla dada por su nuevo tipo*/
 CREATE OR REPLACE TRIGGER MO_AFILIADO2
 BEFORE UPDATE OF TIPO ON AFILIADOS
@@ -146,7 +146,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar estos datos del empleado');
 END;
 /
-/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© asignado a esa biblioteca*/
+/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© asignado a esa biblioteca*/
 CREATE OR REPLACE TRIGGER AD_LIBRO1
 BEFORE INSERT ON LIBROS
 FOR EACH ROW
@@ -184,17 +184,6 @@ BEGIN
       END IF;
 END;
 /
-CREATE OR REPLACE PROCEDURE agregarIntereses(librox IN VARCHAR, afiliadox IN VARCHAR) IS
-    cursor eti is 
-    select * 
-    from etiquetas
-    where libro = librox;
-    BEGIN 
-    for u in eti loop
-        ad_interes (u.palabra, afiliadox);
-    end loop; 
-END;
-/
 CREATE OR REPLACE PROCEDURE ad_interes(palabrax IN VARCHAR, afiliadox IN VARCHAR) IS
     apar NUMBER(3);
     BEGIN
@@ -205,6 +194,17 @@ CREATE OR REPLACE PROCEDURE ad_interes(palabrax IN VARCHAR, afiliadox IN VARCHAR
     IF (apar >0) THEN
         UPDATE intereses SET apariciones = apariciones + 1 WHERE palabra = palabrax and afiliado = afiliadox;
     END IF;
+END;
+/
+CREATE OR REPLACE PROCEDURE agregarIntereses(librox IN VARCHAR, afiliadox IN VARCHAR) IS
+    cursor eti is 
+    select * 
+    from etiquetas
+    where libro = librox;
+    BEGIN 
+    for u in eti loop
+        ad_interes (u.palabra, afiliadox);
+    end loop; 
 END;
 /
 CREATE OR REPLACE FUNCTION fecha_entrega (afiliadox IN varchar, librox IN varchar) RETURN DATE IS
