@@ -3,7 +3,7 @@
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
 VALUES('Luis Angel Arango', 'Cl. 11 #4-14', '52513', 'LuisAngelA@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
-VALUES('Virgilio Barco', 'Avenida Carrera 60 #57 Ã¢â‚¬â€œ 60', '215819', 'VirgilioBarco@bibliomail.com');
+VALUES('Virgilio Barco', 'Avenida Carrera 60 #57 ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ 60', '215819', 'VirgilioBarco@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
 VALUES('El Tintal Manuel Zapata Olivella', 'Ak. 86 #6c-09', '461569', 'ElTintalMZO@bibliomail.com');
 INSERT INTO bibliotecas(nombre, direccion, codigoPostal, correo)
@@ -143,7 +143,7 @@ VALUES('Hernan Herrera', 1102234212, DATE '2018-05-18', 936092, 'hernan@ebay.co.
 INSERT INTO empleados(nombre, cedula, fechaVinculacion, salario, correo, telefono, biblioteca, tipo)
 VALUES('Jhonatan Cristopher', 1192235782, DATE '2018-05-18', 334192, 'jhonatanC@ebay.co.uk', '3142535228', 'La Victoria', 'a');
 INSERT INTO empleados(nombre, cedula, fechaVinculacion, salario, correo, telefono, biblioteca, tipo)
-VALUES('Vladimir Cristal', 1990035582, DATE '2018-08-18', 334192, 'jhonatanC@ebay.co.uk', '3172525238', 'Biblioteca Publica Parque El Tunal', 'a');
+VALUES('Vladimir Cristal', 1990035582, DATE '2018-08-18', 334192, 'vladimir@ebay.co.uk', '3176525338', 'Biblioteca Publica Parque El Tunal', 'a');
 
 /*libros*/
 INSERT INTO libros(direccion, nombre, libre, precio, diasPrestamo, PrecioDiaDemora, editorial, biblioteca, archivista)
@@ -283,6 +283,7 @@ INSERT INTO autores(libro, nombre)VALUES('000039', 'Rubetta Larwood');
 /*poblar etiquetas*/
 INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000011', 'magia');
 INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000001', 'magia');
+INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000001', 'fantasia');
 INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000002', 'magia');
 INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000038', 'angeles');
 INSERT INTO ETIQUETAS(LIBRO,PALABRA) VALUES('000012', 'angeles');
@@ -323,9 +324,9 @@ VALUES('Retraso', 'El libro fue entregado despues de la fecha maxima');
 INSERT INTO causas(id, descripcion)
 VALUES('Perdida', 'El libro fue perdido por el afiliado');
 INSERT INTO causas(id, descripcion)
-VALUES('Dano leve', 'El libro presenta un ligero daÃƒÂ±o, no es necesario reemplazo');
+VALUES('Dano leve', 'El libro presenta un ligero daÃƒÆ’Ã‚Â±o, no es necesario reemplazo');
 INSERT INTO causas(id, descripcion)
-VALUES('Dano grave', 'El libro presenta un gran daÃƒÂ±o, solicita reemplazo');
+VALUES('Dano grave', 'El libro presenta un gran daÃƒÆ’Ã‚Â±o, solicita reemplazo');
 
 /*Poblar multas*/
 INSERT INTO multas(causa, prestamo, valor)
