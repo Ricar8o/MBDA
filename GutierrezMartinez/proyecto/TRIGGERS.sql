@@ -60,7 +60,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar el codigo de un afiliado');
 END;
 /
-/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã‚Â­a por su tipo,
+/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a por su tipo,
 a la nueva tabla dada por su nuevo tipo*/
 CREATE OR REPLACE TRIGGER MO_AFILIADO2
 BEFORE UPDATE OF TIPO ON AFILIADOS
@@ -146,7 +146,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar estos datos del empleado');
 END;
 /
-/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã‚Â© asignado a esa biblioteca*/
+/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© asignado a esa biblioteca*/
 CREATE OR REPLACE TRIGGER AD_LIBRO1
 BEFORE INSERT ON LIBROS
 FOR EACH ROW
@@ -184,6 +184,29 @@ BEGIN
       END IF;
 END;
 /
+CREATE OR REPLACE PROCEDURE agregarIntereses(librox IN VARCHAR, afiliadox IN VARCHAR) IS
+    cursor eti is 
+    select * 
+    from etiquetas
+    where libro = librox;
+    BEGIN 
+    for u in eti loop
+        ad_interes (u.palabra, afiliadox);
+    end loop; 
+END;
+/
+CREATE OR REPLACE PROCEDURE ad_interes(palabrax IN VARCHAR, afiliadox IN VARCHAR) IS
+    apar NUMBER(3);
+    BEGIN
+    SELECT count(afiliado) INTO apar FROM intereses WHERE palabrax = palabra and afiliado = afiliadox;
+    IF (apar = 0) THEN
+        INSERT INTO intereses(afiliado, palabra, apariciones) VALUES (afiliadox, palabrax, 1);
+    END IF;
+    IF (apar >0) THEN
+        UPDATE intereses SET apariciones = apariciones + 1 WHERE palabra = palabrax and afiliado = afiliadox;
+    END IF;
+END;
+/
 CREATE OR REPLACE FUNCTION fecha_entrega (afiliadox IN varchar, librox IN varchar) RETURN DATE IS
     val number(2);
     tipox varchar(1);
@@ -215,16 +238,22 @@ FOR EACH ROW
 DECLARE 
     a varchar(50);
     c number (1);
+    COD number(6);
 BEGIN
     SELECT libre INTO a FROM LIBROS WHERE :new.libro = codigo;
     SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
     :new.fecha_limite := fecha_entrega(:new.afiliado , :new.libro);
+    SELECT MAX(CODIGO) INTO COD FROM RESERVAS;   
     IF ( a = 1 ) THEN
         RAISE_APPLICATION_ERROR(-20032, 'El libro se encuentra ocupado.');
     END IF;
     IF ( c = 1) THEN 
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
     END IF;
+    IF (COD IS NULL) THEN
+        COD:=0;
+    END IF;
+    :NEW.CODIGO:= COD + 1;
 END;
 /
 /*Inserta las etiquetas de un libro a los intereses del usuario caundo este hace una reserva del mismo*/
@@ -232,7 +261,9 @@ CREATE OR REPLACE TRIGGER AD_RESERVA2
 AFTER INSERT ON reservas
 FOR EACH ROW 
 BEGIN
-    INSERT INTO intereses (afiliado, palabra, apariciones) (SELECT :new.afiliado, palabra, 1 FROM ETIQUETAS WHERE libro = :new.libro);
+    UPDATE afiliados SET num_reservas = num_reservas +1 WHERE codigo = :new.afiliado;
+    UPDATE libros SET libre = 0 WHERE codigo = :new.libro;
+    agregarIntereses(:new.libro, :new.afiliado);
 END;
 /
 /*Se asegura que el prestamo no la haga un usuario bloqueado o que el libro que se desea
@@ -250,13 +281,15 @@ DECLARE
     d number (1);
     res number(6);
     COD NUMBER(20);
+    bip varchar(50);
 BEGIN
     SELECT SYSDATE INTO :new.fecha FROM DUAL; 
     SELECT codigo INTO af FROM afiliados WHERE :new.afiliado = codigo;
     SELECT codigo,biblioteca INTO lib,a FROM LIBROS WHERE :new.libro = codigo;
     SELECT bloqueado INTO c FROM afiliados WHERE :new.afiliado = codigo;
     SELECT libre INTO d FROM LIBROS WHERE :new.libro = codigo; 
-    SELECT MAX(CODIGO) INTO COD FROM PRESTAMOS;                                   
+    SELECT MAX(CODIGO) INTO COD FROM PRESTAMOS;
+    SELECT biblioteca INTO bip FROM empleados WHERE :new.empleadoreg = codigo;
     :new.fechaMaximaEntrega := fecha_entrega(:new.afiliado, :new.libro);
     IF ( af is null) THEN
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado no existe');
@@ -266,6 +299,9 @@ BEGIN
     END IF;
     IF ( c = 1) THEN 
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
+    END IF;
+    IF (bip <> a) THEN
+        RAISE_APPLICATION_ERROR(-22293, 'El bibliotecario que registra el prestamo debe estar asignado a la biblioteca');
     END IF;
     IF (d = 0) THEN 
         SELECT afiliado, codigo INTO b, res FROM reservas WHERE :new.libro = libro;
@@ -286,18 +322,14 @@ BEGIN
     
 END;
 /
-CREATE OR REPLACE PROCEDURE nuevo_prestamo(afiliado IN varchar) IS
-    BEGIN
-    UPDATE afiliados SET num_prestamos = num_prestamos +1 WHERE codigo = afiliado;
-END;
-/
 /*Inserta las etiquetas de un libro a los intereses del usuario caundo este lo saca en prestamo*/
 CREATE OR REPLACE TRIGGER AD_PRESTAMO2 
 AFTER INSERT ON PRESTAMOS 
 FOR EACH ROW 
 BEGIN
-    nuevo_prestamo (:new.afiliado);   
-    INSERT INTO intereses (afiliado, palabra, apariciones) (SELECT :new.afiliado, palabra, 1 FROM ETIQUETAS WHERE libro = :new.libro);
+    UPDATE afiliados SET num_prestamos = num_prestamos +1 WHERE codigo = :new.afiliado;
+    UPDATE libros SET libre = 0 WHERE codigo = :new.libro;
+    agregarIntereses(:new.libro, :new.afiliado);
 END;
 /
 /*Crea automaticamente una multa en caso de que la entrega sea tardia*/
@@ -315,4 +347,4 @@ BEGIN
        INSERT INTO multas (causa, prestamo, valor) VALUES ('Retraso' , :old.codigo, a*b);
     END IF;
 END;
-
+/
