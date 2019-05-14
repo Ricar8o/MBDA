@@ -229,10 +229,9 @@ END;
 /
 /*Inserta las etiquetas de un libro a los intereses del usuario caundo este hace una reserva del mismo*/
 CREATE OR REPLACE TRIGGER AD_RESERVA2 
-AFTER INSERT ON PRESTAMOS 
+AFTER INSERT ON reservas
 FOR EACH ROW 
 BEGIN
-    
     INSERT INTO intereses (afiliado, palabra, apariciones) (SELECT :new.afiliado, palabra, 1 FROM ETIQUETAS WHERE libro = :new.libro);
 END;
 /
@@ -284,6 +283,7 @@ BEGIN
         COD:=0;
     END IF;
     :NEW.CODIGO:= COD + 1;
+    
 END;
 /
 CREATE OR REPLACE PROCEDURE nuevo_prestamo(afiliado IN varchar) IS
