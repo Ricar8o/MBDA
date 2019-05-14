@@ -60,7 +60,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar el codigo de un afiliado');
 END;
 /
-/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÂ­a por su tipo,
+/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã‚Â­a por su tipo,
 a la nueva tabla dada por su nuevo tipo*/
 CREATE OR REPLACE TRIGGER MO_AFILIADO2
 BEFORE UPDATE OF TIPO ON AFILIADOS
@@ -146,46 +146,42 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar estos datos del empleado');
 END;
 /
-/*Se asegura que el archivista que registra el libro estÃƒÂ© asignado a esa biblioteca*/
+/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã‚Â© asignado a esa biblioteca*/
 CREATE OR REPLACE TRIGGER AD_LIBRO1
 BEFORE INSERT ON LIBROS
 FOR EACH ROW
 DECLARE 
-    a varchar(50);
+    b varchar(50);
+    a number(6);
 BEGIN
-    SELECT biblioteca INTO a FROM EMPLEADOS WHERE codigo = :new.archivista;
-    IF ( a <> :new.biblioteca) THEN
+    :new.libre := 1;
+    SELECT biblioteca INTO b FROM EMPLEADOS WHERE codigo = :new.archivista;
+    IF ( b <> :new.biblioteca) THEN
         RAISE_APPLICATION_ERROR(-20032, 'El archivista que quiere ingresar un libro no esta asignado a la biblioteca');
     END IF;
-END;
-/
-/*Se asegura que la reserva no la haga un usuario bloqueado o que el libre que se desea
-reservar este ocupado*/
-CREATE OR REPLACE TRIGGER AD_RESERVA1
-BEFORE INSERT ON RESERVAS
-FOR EACH ROW
-DECLARE 
-    a varchar(50);
-    c number (1);
-BEGIN
-    SELECT libre INTO a FROM LIBROS WHERE :new.libro = codigo;
-    SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
-    :new.fecha_limite := fecha_entrega(:new.afiliado , :new.libro);
-    IF ( a = 1 ) THEN
-        RAISE_APPLICATION_ERROR(-20032, 'El libro se encuentrÃƒÂ¡ ocupado.');
-    END IF;
-    IF ( c = 1) THEN 
-        RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
-    END IF;
-END;
-/
-/*Inserta las etiquetas de un libro a los intereses del usuario caundo este hace una reserva del mismo*/
-CREATE OR REPLACE TRIGGER AD_RESERVA2 
-AFTER INSERT ON PRESTAMOS 
-FOR EACH ROW 
-BEGIN
-    
-    INSERT INTO intereses (afiliado, palabra, apariciones) (SELECT :new.afiliado, palabra, 1 FROM ETIQUETAS WHERE libro = :new.libro);
+    SELECT MAX(to_number(codigo ,'999999999999.99')) into a FROM libros;
+      IF (a IS NULL) THEN
+         a:= 0;
+      END IF;
+      a:= a+ 1;
+      IF (a >= 0 AND a <10) THEN 
+        :new.codigo := CONCAT('00000', TO_CHAR(a));
+      END IF;
+      IF (a >= 10 AND a <100) THEN 
+        :new.codigo := CONCAT('0000', TO_CHAR(a ));
+      END IF;
+      IF (a >= 100 AND a <1000) THEN 
+        :new.codigo := CONCAT('000', TO_CHAR(a));
+      END IF;
+      IF (a >= 1000 AND a <10000) THEN 
+        :new.codigo := CONCAT('00', TO_CHAR(a));
+      END IF;
+       IF (a >= 10000 AND a <100000) THEN 
+        :new.codigo := CONCAT('0', TO_CHAR(a));
+      END IF;
+       IF (a >= 100000 AND a <1000000) THEN 
+        :new.codigo := TO_CHAR(a);
+      END IF;
 END;
 /
 CREATE OR REPLACE FUNCTION fecha_entrega (afiliadox IN varchar, librox IN varchar) RETURN DATE IS
@@ -209,6 +205,35 @@ CREATE OR REPLACE FUNCTION fecha_entrega (afiliadox IN varchar, librox IN varcha
     SELECT diasPrestamo INTO val2 FROM libros WHERE codigo = librox;
     fecha := SYSDATE + val + val2;
     return fecha;
+END;
+/
+/*Se asegura que la reserva no la haga un usuario bloqueado o que el libre que se desea
+reservar este ocupado*/
+CREATE OR REPLACE TRIGGER AD_RESERVA1
+BEFORE INSERT ON RESERVAS
+FOR EACH ROW
+DECLARE 
+    a varchar(50);
+    c number (1);
+BEGIN
+    SELECT libre INTO a FROM LIBROS WHERE :new.libro = codigo;
+    SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
+    :new.fecha_limite := fecha_entrega(:new.afiliado , :new.libro);
+    IF ( a = 1 ) THEN
+        RAISE_APPLICATION_ERROR(-20032, 'El libro se encuentra ocupado.');
+    END IF;
+    IF ( c = 1) THEN 
+        RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
+    END IF;
+END;
+/
+/*Inserta las etiquetas de un libro a los intereses del usuario caundo este hace una reserva del mismo*/
+CREATE OR REPLACE TRIGGER AD_RESERVA2 
+AFTER INSERT ON PRESTAMOS 
+FOR EACH ROW 
+BEGIN
+    
+    INSERT INTO intereses (afiliado, palabra, apariciones) (SELECT :new.afiliado, palabra, 1 FROM ETIQUETAS WHERE libro = :new.libro);
 END;
 /
 /*Se asegura que el prestamo no la haga un usuario bloqueado o que el libro que se desea
@@ -243,7 +268,7 @@ BEGIN
     IF ( c = 1) THEN 
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
     END IF;
-    IF ( d = 1) THEN 
+    IF (d = 0) THEN 
         SELECT afiliado, codigo INTO b, res FROM reservas WHERE :new.libro = libro;
         IF (b is null) THEN
             RAISE_APPLICATION_ERROR(-20032, 'El libro no esta disponible');
