@@ -334,17 +334,30 @@ END;
 /
 /*Crea automaticamente una multa en caso de que la entrega sea tardia*/
 CREATE OR REPLACE TRIGGER MO_PRESTAMO
-BEFORE UPDATE OF FECHAENTREGA ON PRESTAMOS
+BEFORE UPDATE OF EMPLEADOENT ON PRESTAMOS
 FOR EACH ROW 
 DECLARE 
     a NUMBER(7);
     b NUMBER(7);
+    EMP VARCHAR(6);
+    bib1 VARCHAR(50);
+    bib2 VARCHAR(50);
 BEGIN
-    UPDATE LIBROS SET libre = 0 WHERE :old.libro = codigo; 
+    SELECT SYSDATE INTO :NEW.FECHAENTREGA FROM DUAL;
+    SELECT BIBLIOTECARIOS.EMPLEADO INTO EMP FROM BIBLIOTECARIOS WHERE EMPLEADO=:NEW.EMPLEADOENT;
+    SELECT biblioteca INTO bib1 FROM empleados WHERE :new.empleadoent = codigo;
+    SELECT biblioteca INTO bib2 FROM LIBROS WHERE :old.libro = codigo;
     a := TRUNC(:old.FECHAMAXIMAENTREGA - :new.FECHAENTREGA, 0);
+    IF (bib1 <> bib2) THEN
+        RAISE_APPLICATION_ERROR(-20003, 'El bibliotecario que registra la devolucion debe estar asignado a la biblioteca');
+    END IF;
+    IF (EMP IS NULL) THEN
+        RAISE_APPLICATION_ERROR(-20003, 'El empleado debe ser un bibliotecario');
+    END IF;
     IF (a < 0) THEN
        SELECT PRECIODIADEMORA INTO b FROM LIBROS WHERE :old.libro = codigo;
        INSERT INTO multas (causa, prestamo, valor) VALUES ('Retraso' , :old.codigo, a*b);
     END IF;
+    UPDATE LIBROS SET libre = 1 WHERE :old.libro = codigo; 
 END;
 /
