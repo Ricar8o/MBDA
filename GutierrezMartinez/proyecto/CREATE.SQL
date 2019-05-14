@@ -1,3 +1,4 @@
+/*Crud Biblioteca*/
 CREATE TABLE bibliotecas(
 nombre varchar(50) NOT NULL PRIMARY KEY,
 direccion varchar(60) NOT NULL UNIQUE,
@@ -98,9 +99,10 @@ codigo NUMBER(6) NOT NULL PRIMARY KEY,
 fecha DATE,
 afiliado varchar(6) NOT NULL,
 libro varchar(6) NOT NULL,
-empleado varchar(6)NOT NULL,
+empleadoReg varchar(6)NOT NULL,
 fechaMaximaEntrega DATE,
-fechaEntrega DATE);
+fechaEntrega DATE,
+empleadoEnt varchar(6));
 
 /*CRUD multa*/
 CREATE TABLE causas(
