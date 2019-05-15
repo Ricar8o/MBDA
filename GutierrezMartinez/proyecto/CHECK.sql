@@ -5,8 +5,6 @@ ALTER TABLE bibliotecas ADD CONSTRAINT CH_BIBLIOTECA
 CHECK (correo LIKE '%@%.%');
 
 /**Crud Afiliado*/
-
-
 ALTER TABLE afiliados ADD CONSTRAINT CH_AFILIADO0
 CHECK (LENGTH(TRIM(TRANSLATE(codigo, '0123456789', ' '))) = 0);
 ALTER TABLE afiliados ADD CONSTRAINT CH_AFILIADO1
@@ -62,7 +60,6 @@ ALTER TABLE libros ADD CONSTRAINT CH_LIBRO5
 CHECK (LENGTH(TRIM(TRANSLATE(SUBSTR(direccion,1,3), 'abcdefghijklmnopqrstuvwxyz', ' '))) = 0);
 ALTER TABLE libros ADD CONSTRAINT CH_LIBRO6
 CHECK (LENGTH(TRIM(TRANSLATE(SUBSTR(direccion,4,3), '0123456789', ' '))) = 0);
-
 /*CRUD reserva*/
 
 /*CRUD prestamo*/
