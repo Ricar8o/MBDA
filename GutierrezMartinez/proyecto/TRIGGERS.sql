@@ -8,6 +8,7 @@ DECLARE
 BEGIN
   :new.num_prestamos := 0; 
   :new.num_reservas := 0; 
+  :new.bloqueado := 0;
   SELECT MAX(to_number(codigo ,'999999999999.99')) into a FROM afiliados;
   IF (a IS NULL) THEN
      a:= 0;
@@ -60,7 +61,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar el codigo de un afiliado');
 END;
 /
-/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a por su tipo,
+/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a por su tipo,
 a la nueva tabla dada por su nuevo tipo*/
 CREATE OR REPLACE TRIGGER MO_AFILIADO2
 BEFORE UPDATE OF TIPO ON AFILIADOS
@@ -146,7 +147,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar estos datos del empleado');
 END;
 /
-/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© asignado a esa biblioteca*/
+/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© asignado a esa biblioteca*/
 CREATE OR REPLACE TRIGGER AD_LIBRO1
 BEFORE INSERT ON LIBROS
 FOR EACH ROW
@@ -319,7 +320,6 @@ BEGIN
         COD:=0;
     END IF;
     :NEW.CODIGO:= COD + 1;
-    
 END;
 /
 /*Inserta las etiquetas de un libro a los intereses del usuario caundo este lo saca en prestamo*/
