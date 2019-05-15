@@ -161,9 +161,9 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20032, 'El archivista que quiere ingresar un libro no esta asignado a la biblioteca');
     END IF;
     SELECT MAX(to_number(codigo ,'999999999999.99')) into a FROM libros;
-      IF (a IS NULL) THEN
+    IF (a IS NULL) THEN
          a:= 0;
-      END IF;
+    END IF;
       a:= a+ 1;
       IF (a >= 0 AND a <10) THEN 
         :new.codigo := CONCAT('00000', TO_CHAR(a));
