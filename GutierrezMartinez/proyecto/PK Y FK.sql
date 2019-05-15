@@ -76,3 +76,5 @@ FOREIGN KEY (prestamo) REFERENCES prestamos(codigo);
 ALTER TABLE multas ADD CONSTRAINT FK_MULTA2
 FOREIGN KEY (causa) REFERENCES causas(id);
 
+ALTER TABLE libros ADD CONSTRAINT UK_LIBROS
+UNIQUE (direccion, biblioteca);
