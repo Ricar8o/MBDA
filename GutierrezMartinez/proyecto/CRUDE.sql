@@ -4,7 +4,7 @@ CREATE OR REPLACE PACKAGE PC_PRESTAMO IS
 END PC_PRESTAMO;
 
 CREATE OR REPLACE PACKAGE PC_LIBROS IS
-    PROCEDURE AD_LIBRO(nombrex IN VARCHAR, preciox IN VARCHAR, diasPrestamox IN VARCHAR, precioDiaDemorax IN NUMBER, editorialx  IN VARCHAR, bibliotecax IN VARCHAR, archivistax IN VARCHAR, direccionx IN VARCHAR);
+    PROCEDURE AD_LIBRO(nombrex IN VARCHAR, preciox IN NUMBER, diasPrestamox IN NUMBER, precioDiaDemorax IN NUMBER, editorialx  IN VARCHAR, bibliotecax IN VARCHAR, archivistax IN VARCHAR, direccionx IN VARCHAR);
     PROCEDURE MO_LIBRO_PRECIO (codigox IN VARCHAR, preciox IN VARCHAR);
     PROCEDURE MO_LIBRO_DIAS (codigox IN VARCHAR, diasPrestamox IN VARCHAR);
     PROCEDURE MO_LIBRO_PRECIO_DIA (codigox IN VARCHAR, precioDiaDemorax IN NUMBER);
