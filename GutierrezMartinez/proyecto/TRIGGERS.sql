@@ -358,6 +358,14 @@ BEGIN
        SELECT PRECIODIADEMORA INTO b FROM LIBROS WHERE :old.libro = codigo;
        INSERT INTO multas (causa, prestamo, valor) VALUES ('Retraso' , :old.codigo, a*b);
     END IF;
-    UPDATE LIBROS SET libre = 1 WHERE :old.libro = codigo; 
+    UPDATE LIBROS SET libre = 1 WHERE :old.libro = codigo;
+    UPDATE afiliados SET num_prestamos = num_prestamos -1 WHERE codigo = :old.afiliado;
 END;
 /
+
+CREATE OR REPLACE TRIGGER EL_PRESTAMO
+BEFORE DELETE ON PRESTAMOS 
+FOR EACH ROW 
+BEGIN 
+    RAISE_APPLICATION_ERROR(-20223, 'No se pueden borrar datos de los prestamos');
+END;
