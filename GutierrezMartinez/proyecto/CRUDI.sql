@@ -33,7 +33,7 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001, 'No se pudo agregar el libro');
     END;
-    PROCEDURE MO_LIBRO_PRECIO (codigox IN VARCHAR, preciox IN VARCHAR) IS 
+    PROCEDURE MO_LIBRO_PRECIO (codigox IN VARCHAR, preciox IN NUMBER) IS 
     BEGIN
         UPDATE LIBROS set precio = preciox WHERE codigo = codigox;
     COMMIT;
@@ -42,7 +42,7 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
         ROLLBACK;
         RAISE_APPLICATION_ERROR(-20001, 'No se modificar el precio');
     END;
-    PROCEDURE MO_LIBRO_DIAS (codigox IN VARCHAR, diasPrestamox IN VARCHAR) IS
+    PROCEDURE MO_LIBRO_DIAS (codigox IN VARCHAR, diasPrestamox IN NUMBER) IS
     BEGIN
         UPDATE LIBROS set diasPrestamo = diasPrestamox WHERE codigo = codigox;
     COMMIT;
