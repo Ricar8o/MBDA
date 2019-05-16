@@ -24,7 +24,7 @@ EXECUTE pc_prestamo.ad_PRESTAMO('000018','000001','000001');
 execute PC_PRESTAMO.DEVOLVER_LIBRO('000018','000001');
 
 CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
-    PROCEDURE AD_LIBRO(nombrex IN VARCHAR, preciox IN VARCHAR, diasPrestamox IN VARCHAR, precioDiaDemorax IN NUMBER, editorialx  IN VARCHAR, bibliotecax IN VARCHAR, archivistax IN VARCHAR, direccionx IN VARCHAR) IS
+    PROCEDURE AD_LIBRO(nombrex IN VARCHAR, preciox IN NUMBER, diasPrestamox IN NUMBER, precioDiaDemorax IN NUMBER, editorialx  IN VARCHAR, bibliotecax IN VARCHAR, archivistax IN VARCHAR, direccionx IN VARCHAR) IS
     BEGIN 
         INSERT INTO LIBROS(nombre, precio, diasPrestamo, precioDiaDemora, editorial, biblioteca, archivista, direccion) VALUES (nombrex, preciox, diasPrestamox, precioDiaDemorax, editorialx, bibliotecax, archivistax, direccionx);
         COMMIT;
