@@ -126,30 +126,6 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
         ROLLBACK;
         RAISE_APPLICATION_ERROR(-20001, 'No se pudo modificar la etiqueta');
     END; 
-    PROCEDURE DE_CATEGORIA (codigox IN VARCHAR, categoriax IN VARCHAR) IS
-    BEGIN 
-        DELETE FROM CATEGORIAS WHERE libro = codigox and nombre = categoriax;
-    EXCEPTION
-    WHEN OTHERS THEN 
-        ROLLBACK;
-        RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar la categoria');
-    END; 
-    PROCEDURE DE_AUTOR (codigox IN VARCHAR, nombrex IN VARCHAR) IS
-    BEGIN 
-        DELETE FROM AUTORES WHERE libro = codigox and nombre = nombrex;
-    EXCEPTION
-    WHEN OTHERS THEN 
-        ROLLBACK;
-        RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar el autor');
-    END; 
-    PROCEDURE DE_ETIQUETA (codigox IN VARCHAR, palabrax IN VARCHAR) IS 
-    BEGIN 
-        DELETE FROM ETIQUETAS WHERE libro = codigox and palabra = palabrax;
-    EXCEPTION
-    WHEN OTHERS THEN 
-        ROLLBACK;
-        RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar la etiqueta');
-    END; 
     PROCEDURE DE_LIBRO (codigox IN VARCHAR) IS 
     BEGIN 
         DELETE FROM LIBROS WHERE codigo = codigox;
@@ -182,7 +158,7 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
         SELECT codigo, nombre, editorial, biblioteca, direccion  FROM LIBROS WHERE nombre = nombrex and  biblioteca = bibliotecax and libre = 1;
     RETURN LIB;
     END;
-    FUNCTION CO_LIBRO__LIBRE_A (autorx IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    FUNCTION CO_LIBRO_LIBRE_A (autorx IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
     BEGIN
     OPEN LIB  FOR
         SELECT b.codigo, b.nombre, b.editorial, b.biblioteca, b.direccion  FROM LIBROS b JOIN AUTORES a ON b.codigo = a.libro WHERE a.nombre = autorx and b.libre = 1;
@@ -194,4 +170,4 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
         SELECT b.codigo, b.nombre, b.editorial, b.biblioteca, b.direccion  FROM LIBROS b JOIN ETIQUETAS e ON b.codigo = e.libro WHERE e.palabra = etiquetax and b.libre = 1;
     RETURN LIB;
     END;
-END PC_LIBROS;  
+END PC_LIBROS; 
