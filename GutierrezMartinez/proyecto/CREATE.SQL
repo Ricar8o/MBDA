@@ -91,7 +91,7 @@ fecha DATE,
 afiliado varchar(6) NOT NULL,
 libro varchar(6) NOT NULL,
 fecha_limite DATE,
-empleado varchar(6));
+activa number(1));
 
 /*CRUD prestamo*/
 CREATE TABLE prestamos(
@@ -112,4 +112,5 @@ descripcion varchar(100));
 CREATE TABLE multas(
 causa varchar(20) NOT NULL, 
 prestamo number(6) NOT NULL,
-valor NUMBER(6));
+valor NUMBER(6),
+pagada NUMBER(1));
