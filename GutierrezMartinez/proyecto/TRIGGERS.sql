@@ -61,7 +61,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar el codigo de un afiliado');
 END;
 /
-/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a por su tipo,
+/*Realiza el cambio de tipo del afiliado, haciendo el traslado de la tabla que le correspondÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­a por su tipo,
 a la nueva tabla dada por su nuevo tipo*/
 CREATE OR REPLACE TRIGGER MO_AFILIADO2
 BEFORE UPDATE OF TIPO ON AFILIADOS
@@ -147,7 +147,7 @@ BEGIN
     RAISE_APPLICATION_ERROR(-20032, 'No se puede modificar estos datos del empleado');
 END;
 /
-/*Se asegura que el archivista que registra el libro estÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â© asignado a esa biblioteca*/
+/*Se asegura que el archivista que registra el libro este asignado a esa biblioteca*/
 CREATE OR REPLACE TRIGGER AD_LIBRO1
 BEFORE INSERT ON LIBROS
 FOR EACH ROW
@@ -242,10 +242,12 @@ DECLARE
     COD number(6);
 BEGIN
     SELECT libre INTO a FROM LIBROS WHERE :new.libro = codigo;
-    SELECT codigo INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
+    SELECT bloqueado INTO c FROM AFILIADOS WHERE codigo = :new.afiliado;
+    SELECT SYSDATE INTO :new.fecha FROM DUAL; 
     :new.fecha_limite := fecha_entrega(:new.afiliado , :new.libro);
+    :new.activa := 1;
     SELECT MAX(CODIGO) INTO COD FROM RESERVAS;   
-    IF ( a = 1 ) THEN
+    IF ( a = 0 ) THEN
         RAISE_APPLICATION_ERROR(-20032, 'El libro se encuentra ocupado.');
     END IF;
     IF ( c = 1) THEN 
@@ -267,6 +269,15 @@ BEGIN
     agregarIntereses(:new.libro, :new.afiliado);
 END;
 /
+/*Cancela una reserva*/
+CREATE OR REPLACE TRIGGER MO_RESERVA 
+BEFORE UPDATE OF activa ON reservas
+FOR EACH ROW 
+BEGIN
+    UPDATE afiliados SET num_reservas = num_reservas -1 WHERE codigo = :new.afiliado;
+    UPDATE libros SET libre = 1 WHERE codigo = :old.libro;
+END;
+/
 /*Se asegura que el prestamo no la haga un usuario bloqueado o que el libro que se desea
 reservar este ocupado*/
 CREATE OR REPLACE TRIGGER AD_PRESTAMO1
@@ -283,6 +294,7 @@ DECLARE
     res number(6);
     COD NUMBER(20);
     bip varchar(50);
+    act NUMBER(1);
 BEGIN
     SELECT SYSDATE INTO :new.fecha FROM DUAL; 
     SELECT codigo INTO af FROM afiliados WHERE :new.afiliado = codigo;
@@ -302,18 +314,18 @@ BEGIN
         RAISE_APPLICATION_ERROR(-20032, 'El afiliado se encuentra bloqueado');
     END IF;
     IF (bip <> a) THEN
-        RAISE_APPLICATION_ERROR(-22293, 'El bibliotecario que registra el prestamo debe estar asignado a la biblioteca');
+        RAISE_APPLICATION_ERROR(-20032, 'El bibliotecario que registra el prestamo debe estar asignado a la biblioteca');
     END IF;
     IF (d = 0) THEN 
-        SELECT afiliado, codigo INTO b, res FROM reservas WHERE :new.libro = libro;
+        SELECT afiliado, codigo, activa INTO b, res, act FROM reservas WHERE :new.libro = libro;
         IF (b is null) THEN
             RAISE_APPLICATION_ERROR(-20032, 'El libro no esta disponible');
         END IF;
         IF (b <> :new.afiliado) THEN
             RAISE_APPLICATION_ERROR(-20032, 'El libro no esta disponible');
         END IF;
-        IF (b = :new.afiliado) THEN
-            DELETE FROM reservas WHERE codigo = res;
+        IF (b = :new.afiliado and act = 1) THEN
+            UPDATE RESERVAS SET activa = 0 WHERE res = codigo;
         END IF;
     END IF;
     IF (COD IS NULL) THEN
@@ -333,12 +345,10 @@ BEGIN
 END;
 /
 /*Crea automaticamente una multa en caso de que la entrega sea tardia*/
-CREATE OR REPLACE TRIGGER MO_PRESTAMO
+CREATE OR REPLACE TRIGGER MO_PRESTAMO1
 BEFORE UPDATE OF EMPLEADOENT ON PRESTAMOS
 FOR EACH ROW 
 DECLARE 
-    a NUMBER(7);
-    b NUMBER(7);
     EMP VARCHAR(6);
     bib1 VARCHAR(50);
     bib2 VARCHAR(50);
@@ -347,25 +357,76 @@ BEGIN
     SELECT BIBLIOTECARIOS.EMPLEADO INTO EMP FROM BIBLIOTECARIOS WHERE EMPLEADO=:NEW.EMPLEADOENT;
     SELECT biblioteca INTO bib1 FROM empleados WHERE :new.empleadoent = codigo;
     SELECT biblioteca INTO bib2 FROM LIBROS WHERE :old.libro = codigo;
-    a := TRUNC(:old.FECHAMAXIMAENTREGA - :new.FECHAENTREGA, 0);
     IF (bib1 <> bib2) THEN
         RAISE_APPLICATION_ERROR(-20003, 'El bibliotecario que registra la devolucion debe estar asignado a la biblioteca');
     END IF;
     IF (EMP IS NULL) THEN
         RAISE_APPLICATION_ERROR(-20003, 'El empleado debe ser un bibliotecario');
     END IF;
-    IF (a < 0) THEN
-       SELECT PRECIODIADEMORA INTO b FROM LIBROS WHERE :old.libro = codigo;
-       INSERT INTO multas (causa, prestamo, valor) VALUES ('Retraso' , :old.codigo, a*b);
-    END IF;
     UPDATE LIBROS SET libre = 1 WHERE :old.libro = codigo;
     UPDATE afiliados SET num_prestamos = num_prestamos -1 WHERE codigo = :old.afiliado;
 END;
 /
-
+/*Crea automaticamente una multa en caso de que la entrega sea tardia*/
+CREATE OR REPLACE TRIGGER MO_PRESTAMO2
+AFTER UPDATE OF EMPLEADOENT ON PRESTAMOS
+FOR EACH ROW 
+DECLARE 
+    a NUMBER(7);
+    b NUMBER(7);
+BEGIN 
+    a := TRUNC(:old.FECHAMAXIMAENTREGA - :new.FECHAENTREGA, 0);
+    IF (a < 0) THEN
+       SELECT PRECIODIADEMORA INTO b FROM LIBROS WHERE :old.libro = codigo;
+       INSERT INTO multas (causa, prestamo, valor) VALUES ('Retraso' , :old.codigo, a*b);
+    END IF;
+END;
+/
+/*Evita que se elimine un prestamo*/
 CREATE OR REPLACE TRIGGER EL_PRESTAMO
 BEFORE DELETE ON PRESTAMOS 
 FOR EACH ROW 
 BEGIN 
     RAISE_APPLICATION_ERROR(-20223, 'No se pueden borrar datos de los prestamos');
+END;
+/
+CREATE OR REPLACE PROCEDURE SACAR_LIBRO (xlibro IN VARCHAR) IS
+   BEGIN
+        UPDATE LIBROS SET libre = 0 WHERE codigo = xlibro;
+END;
+/
+/*Verifica que la multa sea de un prestamo ya entregado y saca al libro de circulacion en caso de ser necesario*/
+CREATE OR REPLACE TRIGGER AD_MULTA
+BEFORE INSERT ON MULTAS
+FOR EACH ROW
+    DECLARE
+    FECHA DATE;
+    librox varchar(6);
+    BEGIN
+    :new.pagada := 0;
+    SELECT fechaEntrega INTO FECHA FROM PRESTAMOS WHERE :new.prestamo = codigo;
+    UPDATE AFILIADOS SET BLOQUEADO = 1 WHERE codigo = (SELECT afiliado FROM PRESTAMOS WHERE :new.prestamo = codigo);
+    IF (FECHA is null) THEN 
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo agregar multa');
+    END IF;
+    IF (:new.causa = 'Perdida' or :new.causa = 'Dano grave') THEN 
+        SELECT LIBRO INTO librox FROM PRESTAMOS WHERE :new.prestamo = codigo;
+        SELECT PRECIO INTO :new.valor FROM LIBROS WHERE codigo = librox;
+        SACAR_LIBRO (librox);
+    END IF;
+END;
+/
+/*Quita el bloqueo si el usuario ya pago todas sus multas*/
+CREATE OR REPLACE TRIGGER MO_MULTA
+AFTER UPDATE OF PAGADA ON MULTAS
+FOR EACH ROW
+DECLARE 
+    afiliadox VARCHAR(6);
+    nmultas NUMBER(2);
+BEGIN
+    SELECT afiliado INTO afiliadox FROM prestamos WHERE :old.prestamo = codigo;
+    SELECT count(codigo) INTO nmultas FROM multas m JOIN (SELECT codigo FROM PRESTAMOS WHERE afiliado = afiliadox) p ON m.prestamo = p.codigo WHERE m.pagada = 0;
+    IF (nmultas = 0) THEN
+        UPDATE AFILIADOS SET bloqueado = 0 WHERE codigo = afiliadox;
+    END IF;
 END;
