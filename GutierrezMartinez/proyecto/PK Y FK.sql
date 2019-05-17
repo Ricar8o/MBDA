@@ -47,10 +47,10 @@ ALTER TABLE libros ADD CONSTRAINT FK_LIBRO_ARCHIVISTA
 FOREIGN KEY (archivista) REFERENCES archivistas(empleado);
 ALTER TABLE autores ADD CONSTRAINT FK_AUTORES_LIBRO
 FOREIGN KEY (libro) REFERENCES libros(codigo);
+ALTER TABLE libros ADD CONSTRAINT UK_LIBROS
+UNIQUE (direccion, biblioteca);
 
 /*CRUD reserva*/
-
-
 ALTER TABLE reservas ADD CONSTRAINT FK_RESERVA1
 FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
 ALTER TABLE reservas ADD CONSTRAINT FK_RESERVA2
@@ -59,13 +59,17 @@ FOREIGN KEY (libro) REFERENCES libros(codigo);
 /*CRUD prestamo*/
 
 ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO1
-FOREIGN KEY (afiliado) REFERENCES afiliados(codigo);
+FOREIGN KEY (afiliado) REFERENCES afiliados(codigo)
+ON DELETE SET NULL;
 ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO2
-FOREIGN KEY (libro) REFERENCES libros(codigo);
+FOREIGN KEY (libro) REFERENCES libros(codigo)
+ON DELETE CASCADE;
 ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO3
-FOREIGN KEY (empleadoReg) REFERENCES bibliotecarios(empleado);
+FOREIGN KEY (empleadoReg) REFERENCES bibliotecarios(empleado)
+ON DELETE SET NULL;
 ALTER TABLE prestamos ADD CONSTRAINT FK_PRESTAMO4
-FOREIGN KEY (empleadoEnt) REFERENCES bibliotecarios(empleado);
+FOREIGN KEY (empleadoEnt) REFERENCES bibliotecarios(empleado)
+ON DELETE SET NULL;
 
 /*CRUD multa*/
 
@@ -76,5 +80,3 @@ FOREIGN KEY (prestamo) REFERENCES prestamos(codigo);
 ALTER TABLE multas ADD CONSTRAINT FK_MULTA2
 FOREIGN KEY (causa) REFERENCES causas(id);
 
-ALTER TABLE libros ADD CONSTRAINT UK_LIBROS
-UNIQUE (direccion, biblioteca);
