@@ -20,8 +20,6 @@ CREATE OR REPLACE PACKAGE BODY PC_PRESTAMO IS
     END;
 END PC_PRESTAMO;
 
-EXECUTE pc_prestamo.ad_PRESTAMO('000018','000001','000001');
-execute PC_PRESTAMO.DEVOLVER_LIBRO('000018','000001');
 
 CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     PROCEDURE AD_LIBRO(nombrex IN VARCHAR, preciox IN NUMBER, diasPrestamox IN NUMBER, precioDiaDemorax IN NUMBER, editorialx  IN VARCHAR, bibliotecax IN VARCHAR, archivistax IN VARCHAR, direccionx IN VARCHAR) IS
@@ -171,3 +169,24 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     RETURN LIB;
     END;
 END PC_LIBROS; 
+
+CREATE OR REPLACE PACKAGE BODY PC_RESERVA IS 
+    PROCEDURE AD_RESERVA (xlibro IN VARCHAR, xafiliado IN VARCHAR) IS
+    BEGIN
+        INSERT INTO RESERVAS(libro,afiliado) values(xlibro, xafiliado);
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo realizar la reserva');
+    END;
+    PROCEDURE CANCELAR_RESERVA (xcodigo IN VARCHAR) IS
+    BEGIN
+        UPDATE RESERVAS SET activa = 1 WHERE xcodigo = codigo;
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo realizar la cancelacion');
+    END;
+END PC_RESERVA;
