@@ -2747,21 +2747,23 @@ CREATE OR REPLACE PROCEDURE POBLARPRESTAMOS IS
     end loop; 
 END;
 EXECUTE POBLARPRESTAMOS;
-/*Poblar reservas*/
-/*
-INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(1, DATE '2018-03-05', 'imu336', 'tki342', DATE '2018-03-10', 'ago871');
-INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(2, DATE '2018-03-07', 'ett783', 'ckn018', DATE '2018-03-10', 'int796');
-INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(3, DATE '2018-02-27', 'lud400', 'mpc505', DATE '2018-03-02', 'hcc368');
-INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(4, DATE '2018-02-28', 'gof451', 'kgp432', DATE '2018-03-03', 'bza378');
-INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(5, DATE '2018-02-26', 'akb509', 'hbt165', DATE '2018-03-02', 'aaa006');
-INSERT INTO reservas(codigo, fecha, afiliado, libro, fecha_limite, empleado)
-VALUES(6, DATE '2018-03-07', 'syc615', 'yls048', DATE '2018-03-11', 'aaa007');
-*/
+/
+/*Poblar reserva*/
+CREATE OR REPLACE PROCEDURE POBLARRESERVA IS 
+    afil varchar(6);
+    cursor pres is 
+    select CODIGO
+    from libros
+    WHERE libre = 1 and ROWNUM < 100;
+    BEGIN 
+    for u in pres loop
+        SELECT codigo INTO afil FROM AFILIADOS WHERE num_reservas < 3 and bloqueado = 0 and rownum = 1;
+        IF (afil is not null) THEN
+             INSERT INTO reservas (afiliado, libro) VALUES (afil, u.codigo);
+        END IF;
+    end loop; 
+END;
+EXECUTE POBLARRESERVA;
 /*Poblar causas*/
 INSERT INTO causas(id, descripcion)
 VALUES('Retraso', 'El libro fue entregado despues de la fecha maxima');
@@ -2773,8 +2775,8 @@ INSERT INTO causas(id, descripcion)
 VALUES('Dano grave', 'El libro presenta un gran dano, solicita reemplazo');
 
 /*Poblar multas*/
-INSERT INTO multas(causa, prestamo, valor)
-VALUES('Retraso', 1, 20000);
+INSERT INTO multas(causa, prestamo)
+VALUES('Dano grave', 100);
 INSERT INTO multas(causa, prestamo, valor)
 VALUES('Perdida', 2, 100000);
 INSERT INTO multas(causa, prestamo, valor)
