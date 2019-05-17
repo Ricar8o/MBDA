@@ -1,7 +1,6 @@
-
 CREATE OR REPLACE PACKAGE BODY PC_PRESTAMO IS 
     PROCEDURE AD_PRESTAMO (xempleado IN VARCHAR, xlibro IN VARCHAR, xafiliado IN VARCHAR) IS
-    BEGIN
+    BEGIN     
         INSERT INTO PRESTAMOS(empleadoReg,libro,afiliado) values(xempleado, xlibro, xafiliado);
         COMMIT;
     EXCEPTION
@@ -18,9 +17,21 @@ CREATE OR REPLACE PACKAGE BODY PC_PRESTAMO IS
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001, 'No se pudo realizar la devolucion');
     END;
+    PROCEDURE RENOVAR_PRESTAMO (xcodigo IN VARCHAR) IS
+    librox varchar(6);
+    diasx NUMBER(2);
+    BEGIN
+        SELECT libro INTO librox FROM prestamos where codigo  = xcodigo;
+        SELECT diasprestamo INTO diasx FROM LIBROS where codigo = librox;
+        UPDATE PRESTAMOS SET fechamaximaentrega = fechamaximaentrega + diasx WHERE codigo = xcodigo;
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo realizar la renovacion');
+    END;  
 END PC_PRESTAMO;
-
-
+/
 CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     PROCEDURE AD_LIBRO(nombrex IN VARCHAR, preciox IN NUMBER, diasPrestamox IN NUMBER, precioDiaDemorax IN NUMBER, editorialx  IN VARCHAR, bibliotecax IN VARCHAR, archivistax IN VARCHAR, direccionx IN VARCHAR) IS
     BEGIN 
@@ -169,10 +180,16 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     RETURN LIB;
     END;
 END PC_LIBROS; 
-
+/
 CREATE OR REPLACE PACKAGE BODY PC_RESERVA IS 
     PROCEDURE AD_RESERVA (xlibro IN VARCHAR, xafiliado IN VARCHAR) IS
+    numReservasx NUMBER(1);
+    tipox VARCHAR(1);
     BEGIN
+        SELECT num_reservas, tipo INTO numReservasx, tipox FROM afiliados WHERE codigo = xafiliado;
+        IF ((numReservasx > 2 and tipox = 'o') or (numReservasx > 1 and tipox = 'p') or (tipox = 'n')) THEN
+            RAISE_APPLICATION_ERROR(-20001, 'El afiliado no puede hacer una reserva mas');
+        END IF;
         INSERT INTO RESERVAS(libro,afiliado) values(xlibro, xafiliado);
         COMMIT;
     EXCEPTION
@@ -180,9 +197,9 @@ CREATE OR REPLACE PACKAGE BODY PC_RESERVA IS
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001, 'No se pudo realizar la reserva');
     END;
-    PROCEDURE CANCELAR_RESERVA (xcodigo IN VARCHAR) IS
+    PROCEDURE CANCELAR_RESERVA (xlibro IN VARCHAR) IS
     BEGIN
-        UPDATE RESERVAS SET activa = 1 WHERE xcodigo = codigo;
+        UPDATE RESERVAS SET activa = 1 WHERE xlibro = codigo;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN 
@@ -190,3 +207,67 @@ CREATE OR REPLACE PACKAGE BODY PC_RESERVA IS
             RAISE_APPLICATION_ERROR(-20001, 'No se pudo realizar la cancelacion');
     END;
 END PC_RESERVA;
+/
+CREATE OR REPLACE PACKAGE BODY PCK_AFILIADO IS 
+  PROCEDURE AD_AFILIADO (cedulax VARCHAR, nombrex VARCHAR, correox VARCHAR, telefonox VARCHAR, tipox VARCHAR) IS 
+   BEGIN
+        INSERT INTO AFILIADOS(cedula, nombre, correo, telefono, tipo) values(cedulax, nombrex, correox, telefonox, tipox);
+        COMMIT;
+    EXCEPTION
+        WHEN OTHERS THEN 
+            ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo agregar el afiliado');
+    END;
+  PROCEDURE MO_AFILIADO_NOM (codigox VARCHAR, nombrex VARCHAR) IS
+    BEGIN 
+        UPDATE AFILIADOS set nombre = nombrex WHERE codigo = codigox;
+    EXCEPTION
+    WHEN OTHERS THEN 
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo modificar el nombre');
+    END; 
+  PROCEDURE MO_AFILIADO_COR (codigox VARCHAR, correox VARCHAR) IS 
+  BEGIN 
+        UPDATE AFILIADOS set correo = correox WHERE codigo = codigox;
+    EXCEPTION
+    WHEN OTHERS THEN 
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo modificar el correo');
+    END; 
+  PROCEDURE MO_AFILIADO_TEL (codigox VARCHAR, telefonox VARCHAR) IS 
+  BEGIN 
+        UPDATE AFILIADOS set telefono = telefonox WHERE codigo = codigox;
+    EXCEPTION
+    WHEN OTHERS THEN 
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo modificar el telefono');
+    END; 
+  PROCEDURE MO_AFILIADO_TIP (codigox VARCHAR, tipox VARCHAR) IS
+    BEGIN 
+        UPDATE AFILIADOS set tipo = tipox WHERE codigo = codigox;
+    EXCEPTION
+    WHEN OTHERS THEN 
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo modificar el tipo');
+    END; 
+  PROCEDURE DE_AFILIADO (codigox VARCHAR) IS
+  BEGIN 
+    DELETE FROM AFILIADOS WHERE codigo = codigox;
+    EXCEPTION
+    WHEN OTHERS THEN 
+        ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar al afiliado');
+    END; 
+   FUNCTION CO_INTERESES (codigox IN VARCHAR)  RETURN SYS_REFCURSOR IS ETI SYS_REFCURSOR;
+    BEGIN
+    OPEN ETI FOR
+        SELECT palabra, apariciones FROM INTERESES WHERE afiliado = codigox ORDER BY apariciones DESC;
+    RETURN ETI;
+    END;
+   FUNCTION CO_LIBROS_SACADOS (codigox IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    BEGIN
+    OPEN LIB FOR
+        SELECT nombre, count(l.codigo) as veces FROM libros l JOIN (SELECT * FROM PRESTAMOS WHERE AFILIADO = codigox) f ON f.libro = l.codigo GROUP BY nombre;
+    RETURN LIB;
+    END;
+END;
