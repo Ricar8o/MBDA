@@ -197,9 +197,9 @@ CREATE OR REPLACE PACKAGE BODY PC_RESERVA IS
             ROLLBACK;
             RAISE_APPLICATION_ERROR(-20001, 'No se pudo realizar la reserva');
     END;
-    PROCEDURE CANCELAR_RESERVA (xlibro IN VARCHAR) IS
+    PROCEDURE CANCELAR_RESERVA (xreserva IN NUMBER) IS
     BEGIN
-        UPDATE RESERVAS SET activa = 1 WHERE xlibro = codigo;
+        UPDATE RESERVAS SET activa = 1 WHERE xreserva = codigo;
         COMMIT;
     EXCEPTION
         WHEN OTHERS THEN 
