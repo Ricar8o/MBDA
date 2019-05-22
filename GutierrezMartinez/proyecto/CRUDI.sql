@@ -136,7 +136,12 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
         RAISE_APPLICATION_ERROR(-20001, 'No se pudo modificar la etiqueta');
     END; 
     PROCEDURE DE_LIBRO (codigox IN VARCHAR) IS 
+    p number(1);
     BEGIN 
+        SELECT count(libro) INTO p FROM prestamos WHERE libro = codigox and fechaEntrega is null;
+        IF (p >0) THEN
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar el libro');
+        END IF;
         DELETE FROM LIBROS WHERE codigo = codigox;
     EXCEPTION
     WHEN OTHERS THEN 
@@ -146,37 +151,49 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     FUNCTION CO_EDITORIALES_BIBLIOTECA (bibliotecax IN VARCHAR)  RETURN SYS_REFCURSOR IS EDITO SYS_REFCURSOR;
     BEGIN
     OPEN EDITO  FOR
-        SELECT DISTINCT(EDITORIAL) FROM LIBROS WHERE biblioteca = bibliotecax;
+        SELECT DISTINCT(EDITORIAL) FROM LIBROS WHERE lower(biblioteca) like '%'|| lower(bibliotecax) ||'%' ;
     RETURN EDITO;
     END;
-    FUNCTION CO_LIBROS_BIBLIOTECA (nombrex IN VARCHAR, bibliotecax IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    FUNCTION BUSCAR_LIBRO (nombrex IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
     BEGIN
     OPEN LIB  FOR
-        SELECT codigo, nombre, editorial, biblioteca, direccion  FROM LIBROS WHERE nombre = nombrex and  biblioteca = bibliotecax;
+        SELECT codigo, nombre, editorial, biblioteca, direccion,libre FROM LIBROS WHERE lower(nombre) like  '%'|| lower(nombrex) ||'%' and libre = 1;
     RETURN LIB;
     END;
-    FUNCTION CO_LIBRO_LIBRE (nombrex IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    FUNCTION BUSCAR_LIBRO_BIBLIOTECA (nombrex IN VARCHAR, bibliotecax IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
     BEGIN
     OPEN LIB  FOR
-        SELECT codigo, nombre, editorial, biblioteca, direccion FROM LIBROS WHERE nombre = nombrex and libre = 1;
+        SELECT codigo, nombre, editorial, biblioteca, direccion,libre  FROM LIBROS WHERE  lower(nombre) like  '%'|| lower(nombrex) ||'%' and  lower(biblioteca) like '%'|| lower(bibliotecax) ||'%' ;
     RETURN LIB;
     END;
-    FUNCTION CO_LIBRO_LIBRE_B (nombrex IN VARCHAR, bibliotecax IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    FUNCTION BUSCAR_LIBROS_AUTOR (autorx IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
     BEGIN
     OPEN LIB  FOR
-        SELECT codigo, nombre, editorial, biblioteca, direccion  FROM LIBROS WHERE nombre = nombrex and  biblioteca = bibliotecax and libre = 1;
+        SELECT b.codigo, b.nombre, b.editorial, b.biblioteca, b.direccion,b.libre  FROM LIBROS b JOIN AUTORES a ON b.codigo = a.libro WHERE  lower(a.nombre) like  '%'|| lower(autorx) ||'%' ;
     RETURN LIB;
     END;
-    FUNCTION CO_LIBRO_LIBRE_A (autorx IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    FUNCTION BUSCAR_LIBROS_ETIQUETA (etiquetax IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
     BEGIN
     OPEN LIB  FOR
-        SELECT b.codigo, b.nombre, b.editorial, b.biblioteca, b.direccion  FROM LIBROS b JOIN AUTORES a ON b.codigo = a.libro WHERE a.nombre = autorx and b.libre = 1;
+        SELECT b.codigo, b.nombre, b.editorial, b.biblioteca, b.direccion,b.libre  FROM LIBROS b JOIN ETIQUETAS e ON b.codigo = e.libro WHERE lower(e.palabra) like  '%'|| lower(etiquetax) ||'%';
     RETURN LIB;
     END;
-    FUNCTION CO_LIBRO_LIBRE_E (etiquetax IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    FUNCTION CO_CATEGORIAS_BIBLIOTECA (bibliotecax IN VARCHAR)  RETURN SYS_REFCURSOR IS CAT SYS_REFCURSOR;
     BEGIN
-    OPEN LIB  FOR
-        SELECT b.codigo, b.nombre, b.editorial, b.biblioteca, b.direccion  FROM LIBROS b JOIN ETIQUETAS e ON b.codigo = e.libro WHERE e.palabra = etiquetax and b.libre = 1;
+    OPEN CAT FOR
+        SELECT * FROM categorias_bibliotecas WHERE LOWER(biblioteca) LIKE  '%'||LOWER(bibliotecax)||'%'; 
+    RETURN CAT;
+    END;
+    FUNCTION NUM_LIBROS_BIBLIOTECA (bibliotecax IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    BEGIN
+    OPEN lib FOR 
+        SELECT * FROM CANTIDAD_LIBROS WHERE LOWER(biblioteca) LIKE  '%'||LOWER(bibliotecax)||'%'; 
+    RETURN LIB;
+    END;
+    FUNCTION CO_MAS_POPULARES RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
+    BEGIN
+    OPEN lib FOR 
+        SELECT * FROM POPULARIDAD; 
     RETURN LIB;
     END;
 END PC_LIBROS; 
@@ -251,12 +268,21 @@ CREATE OR REPLACE PACKAGE BODY PCK_AFILIADO IS
         RAISE_APPLICATION_ERROR(-20001, 'No se pudo modificar el tipo');
     END; 
   PROCEDURE DE_AFILIADO (codigox VARCHAR) IS
+  pr number(2);
+  r number (2);
+  m number (2);
   BEGIN 
+    SELECT count(afiliado) INTO pr FROM prestamos WHERE afiliado = codigox and fechaentrega is null;
+    SELECT count(afiliado) INTO r FROM reservas WHERE afiliado = codigox and activa = 1;
+    SELECT count(afiliado) INTO m FROM multas m JOIN prestamos p ON p.codigo = m.prestamo WHERE p.afiliado = codigox and pagada = 0;
+    IF (pr + r + m> 0) THEN 
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar al afiliado');
+    END IF;
     DELETE FROM AFILIADOS WHERE codigo = codigox;
     EXCEPTION
     WHEN OTHERS THEN 
         ROLLBACK;
-        RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar al afiliado');
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar al afiliado');
     END; 
    FUNCTION CO_INTERESES (codigox IN VARCHAR)  RETURN SYS_REFCURSOR IS ETI SYS_REFCURSOR;
     BEGIN
@@ -271,3 +297,4 @@ CREATE OR REPLACE PACKAGE BODY PCK_AFILIADO IS
     RETURN LIB;
     END;
 END;
+
