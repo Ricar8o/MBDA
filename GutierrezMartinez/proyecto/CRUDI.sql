@@ -97,7 +97,7 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     END;
     PROCEDURE AD_AUTOR (codigox IN VARCHAR, nombrex IN VARCHAR) IS
     BEGIN
-        INSERT INTO AUTORES (libro, nombre) VALUES (codigox, nombrex);
+        INSERT INTO AUTORESLIBROS (libro, autor) VALUES (codigox, nombrex);
     EXCEPTION
     WHEN OTHERS THEN 
         ROLLBACK;
@@ -121,7 +121,7 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     END;    
     PROCEDURE MO_AUTOR (codigox IN VARCHAR, nombrex IN VARCHAR, nnombrex IN VARCHAR) IS 
     BEGIN 
-        UPDATE AUTORES set nombre = nnombrex WHERE libro = codigox and nombre = nombrex;
+        UPDATE AUTORESLIBROS set autor = nnombrex WHERE libro = codigox and autor = nombrex;
     EXCEPTION
     WHEN OTHERS THEN 
         ROLLBACK;
@@ -169,7 +169,7 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
     FUNCTION BUSCAR_LIBROS_AUTOR (autorx IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
     BEGIN
     OPEN LIB  FOR
-        SELECT b.codigo, b.nombre, b.editorial, b.biblioteca, b.direccion,b.libre  FROM LIBROS b JOIN AUTORES a ON b.codigo = a.libro WHERE  lower(a.nombre) like  '%'|| lower(autorx) ||'%' ;
+        SELECT f.codigo, f.nombre, f.editorial, f.biblioteca, f.direccion,f.libre FROM (SELECT * FROM libros b JOIN autoreslibros a ON b.codigo = a.libro) f JOIN autores u ON u.codigo = f.autor  WHERE  lower(u.nombre) like  '%'|| lower(autorx) ||'%';
     RETURN LIB;
     END;
     FUNCTION BUSCAR_LIBROS_ETIQUETA (etiquetax IN VARCHAR)  RETURN SYS_REFCURSOR IS LIB SYS_REFCURSOR;
@@ -297,4 +297,3 @@ CREATE OR REPLACE PACKAGE BODY PCK_AFILIADO IS
     RETURN LIB;
     END;
 END;
-
