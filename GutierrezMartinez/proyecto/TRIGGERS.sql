@@ -430,3 +430,34 @@ BEGIN
         UPDATE AFILIADOS SET bloqueado = 0 WHERE codigo = afiliadox;
     END IF;
 END;
+/
+CREATE OR REPLACE TRIGGER AD_AUTOR
+BEFORE INSERT ON AUTORES
+FOR EACH ROW
+DECLARE 
+  a number(6);
+BEGIN
+  SELECT MAX(to_number(codigo ,'999999999999.99')) into a FROM autores;
+  IF (a IS NULL) THEN
+     a:= 0;
+  END IF;
+  a:= a+ 1;
+  IF (a >= 0 AND a <10) THEN 
+    :new.codigo := CONCAT('00000', TO_CHAR(a));
+  END IF;
+  IF (a >= 10 AND a <100) THEN 
+    :new.codigo := CONCAT('0000', TO_CHAR(a ));
+  END IF;
+  IF (a >= 100 AND a <1000) THEN 
+    :new.codigo := CONCAT('000', TO_CHAR(a));
+  END IF;
+  IF (a >= 1000 AND a <10000) THEN 
+    :new.codigo := CONCAT('00', TO_CHAR(a));
+  END IF;
+   IF (a >= 10000 AND a <100000) THEN 
+    :new.codigo := CONCAT('0', TO_CHAR(a));
+  END IF;
+   IF (a >= 100000 AND a <1000000) THEN 
+    :new.codigo := TO_CHAR(a);
+  END IF;
+END;
