@@ -13,8 +13,8 @@ biblioteca varchar(50));
 CREATE TABLE afiliados(
 codigo varchar(6) NOT NULL PRIMARY KEY,
 cedula varchar(10) NOT NULL UNIQUE,
-nombre varchar(30),
-correo varchar(30) UNIQUE,
+nombre varchar(200),
+correo varchar(200) UNIQUE,
 bloqueado NUMBER(1),
 telefono varchar(10) UNIQUE, 
 tipo varchar(1) NOT NULL,
@@ -55,22 +55,28 @@ CREATE TABLE etiquetas(
 libro varchar(6) NOT NULL,
 palabra varchar(10) NOT NULL);
 
-CREATE TABLE autores(
+CREATE TABLE autoresLibros(
 libro varchar(6) NOT NULL,
-nombre varchar(30) NOT NULL);
+autor varchar(6) NOT NULL);
 
 CREATE TABLE categorias(
 libro varchar(6) NOT NULL,
 nombre varchar(20) NOT NULL);
 
+/*CRUD autores*/
+CREATE TABLE autores(
+codigo varchar(6),
+nombre varchar(100),
+pais varchar(50));
+
 /*CRUD empleado*/
 CREATE TABLE empleados(
 codigo varchar(6) NOT NULL PRIMARY KEY,
 cedula varchar(10) NOT NULL UNIQUE,
-nombre varchar(30),
+nombre varchar(200),
 fechaVinculacion DATE,
 salario number(7),
-correo varchar(30) UNIQUE,
+correo varchar(200) UNIQUE,
 telefono varchar(10) UNIQUE,
 biblioteca varchar(50),
 tipo varchar(1));
