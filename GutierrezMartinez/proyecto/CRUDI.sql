@@ -1,4 +1,4 @@
-CREATE OR REPLACE PACKAGE BODY PC_PRESTAMO IS 
+                                                                   CREATE OR REPLACE PACKAGE BODY PC_PRESTAMO IS 
     PROCEDURE AD_PRESTAMO (xempleado IN VARCHAR, xlibro IN VARCHAR, xafiliado IN VARCHAR) IS
     BEGIN     
         INSERT INTO PRESTAMOS(empleadoReg,libro,afiliado) values(xempleado, xlibro, xafiliado);
@@ -196,6 +196,12 @@ CREATE OR REPLACE PACKAGE BODY PC_LIBROS IS
         SELECT * FROM POPULARIDAD; 
     RETURN LIB;
     END;
+    FUNCTION CO_AUTOR(autorx in VARCHAR)RETURN SYS_REFCURSOR IS AUT SYS_REFCURSOR;
+    BEGIN
+    OPEN aut FOR 
+        SELECT * FROM autores WHERE LOWER(nombre) LIKE '%'||LOWER(autorx)||'%';
+    RETURN aut;
+    END;
 END PC_LIBROS; 
 /
 CREATE OR REPLACE PACKAGE BODY PC_RESERVA IS 
@@ -295,6 +301,18 @@ CREATE OR REPLACE PACKAGE BODY PCK_AFILIADO IS
     OPEN LIB FOR
         SELECT nombre, count(l.codigo) as veces FROM libros l JOIN (SELECT * FROM PRESTAMOS WHERE AFILIADO = codigox) f ON f.libro = l.codigo GROUP BY nombre;
     RETURN LIB;
+    END;
+    FUNCTION BUSCAR_AFILIADO_CORREO(correox IN VARCHAR) RETURN SYS_REFCURSOR IS AF SYS_REFCURSOR;
+    BEGIN
+    OPEN af FOR 
+        SELECT * FROM afiliados WHERE CORREO= correox ;
+    RETURN af;
+    END;
+    FUNCTION BUSCAR_AFILIADO_CEDULA(cedulax IN VARCHAR) RETURN SYS_REFCURSOR IS AF SYS_REFCURSOR;
+    BEGIN
+    OPEN af FOR 
+        SELECT * FROM afiliados WHERE CEDULA = cedulax ;
+    RETURN af;
     END;
 END;
 /
