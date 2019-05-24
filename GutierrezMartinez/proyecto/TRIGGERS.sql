@@ -461,3 +461,81 @@ BEGIN
     :new.codigo := TO_CHAR(a);
   END IF;
 END;
+/
+CREATE OR REPLACE TRIGGER ad_reservasSalones
+BEFORE INSERT ON reservasSalones
+FOR EACH ROW
+DECLARE 
+    dif number(3);
+    valor number(7);
+    cod number(6);
+    res number(3);
+    des number (3);
+    aft varchar(1);
+    bip varchar(50);
+BEGIN
+    SELECT TRUNC(MOD((:new.fin - :new.inicio) * 24, 24)) into dif from dual;
+    SELECT t.valorHora into valor FROM Salones s JOIN tiposSalones t ON t.tipo = s.tipo WHERE :new.salonNum = s.numero and :new.salonBib = s.biblioteca;
+    SELECT count(codigo) INTO res FROM reservasSalones WHERE (inicio <= :new.inicio and :new.inicio <= fin) or (inicio <= :new.fin and :new.fin <= fin);
+    SELECT max(codigo) INTO cod FROM reservasSalones;
+    SELECT tipo INTO aft FROM afiliados WHERE codigo = :new.afiliado;
+    SELECT biblioteca INTO bip FROM empleados WHERE :new.bibliotecario = codigo;
+    IF (cod is null) THEN 
+        cod:= 0;
+    END IF;
+    :new.pagado := 0;
+    :new.codigo := cod + 1;
+    IF (res > 0) THEN
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo agregar la reserva');
+    END IF;
+    IF (valor is null) THEN
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo agregar la reserva');
+    END IF;
+    IF (dif < 0) THEN
+        RAISE_APPLICATION_ERROR(-20002, 'Mal ingreso de fechas');
+    END IF;
+    IF (bip <> :new.salonbib) THEN
+        RAISE_APPLICATION_ERROR(-20002, 'El bibliotecario no esta asignada a la biblioteca');
+    END IF;
+    :new.valorTotal := (dif * valor);
+    UPDATE afiliados SET bloqueado = 1 WHERE :new.afiliado = codigo;
+END;
+/
+CREATE OR REPLACE TRIGGER mo_reservasSalones
+BEFORE UPDATE OF pagado ON reservasSalones 
+FOR EACH ROW
+BEGIN
+    IF (:new.pagado = 1) THEN
+        UPDATE afiliados SET bloqueado = 0 WHERE :old.afiliado = codigo;
+    END IF;
+END;
+/
+CREATE OR REPLACE TRIGGER mo_reservasSalones
+BEFORE UPDATE OF inicio, fin ON reservasSalones
+FOR EACH ROW
+DECLARE
+    fecha DATE;
+    res number(3);
+BEGIN
+    SELECT SYSDATE into fecha from dual;
+    SELECT count(codigo) INTO res FROM reservasSalones WHERE ((inicio <= :new.inicio and :new.inicio <= fin) or (inicio <= :new.fin and :new.fin <= fin)) and :old.codigo <> codigo;
+    IF (fecha > :old.inicio) THEN
+        RAISE_APPLICATION_ERROR(-20002, 'No se pueden cambiar las fechas.');
+    END IF;
+    IF (res > 0) THEN
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo agregar la reserva');
+    END IF;
+END;
+/
+CREATE OR REPLACE TRIGGER de_reservasSalones
+BEFORE DELETE ON reservasSalones
+FOR EACH ROW
+DECLARE
+    fecha DATE;
+BEGIN
+    SELECT SYSDATE into fecha from dual;
+    IF (fecha > :old.inicio) THEN
+        RAISE_APPLICATION_ERROR(-20002, 'No se puede eliminar la reserva');
+    END IF;
+    UPDATE afiliados SET bloqueado = 0 WHERE :old.afiliado = codigo;
+END;
