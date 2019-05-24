@@ -2761,3 +2761,10 @@ INSERT INTO multas(causa, prestamo, valor)
 VALUES('Perdida', 3, 200000);
 INSERT INTO multas(causa, prestamo, valor)
 VALUES('Dano leve', 4, 50000);
+                                                         
+/*Ciclo 2*/
+INSERT INTO TIPOSSALONES (tipo, valorHora) VALUES ('Conferencia', 100000);
+INSERT INTO SALONES VALUES (101, 'Luis Angel Arango', 200, 'Conferencia');
+INSERT INTO SALONES VALUES (102, 'Luis Angel Arango', 200, 'Conferencia');
+INSERT INTO RESERVASSALONES (inicio, fin, salonnum, salonbib, afiliado, bibliotecario) 
+VALUES (TO_DATE('01/01/2017 20:35:09', 'DD.MM.YYYY HH24:MI:SS'), TO_DATE('01/01/2017 22:35:09', 'DD.MM.YYYY HH24:MI:SS'), 101, 'Luis Angel Arango', (SELECT codigo FROM afiliados WHERE bloqueado = 0, '000956');
