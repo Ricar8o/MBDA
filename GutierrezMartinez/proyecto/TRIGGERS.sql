@@ -473,6 +473,7 @@ DECLARE
     des number (3);
     aft varchar(1);
     bip varchar(50);
+    blo number(1);
 BEGIN
     SELECT TRUNC(MOD((:new.fin - :new.inicio) * 24, 24)) into dif from dual;
     SELECT t.valorHora into valor FROM Salones s JOIN tiposSalones t ON t.tipo = s.tipo WHERE :new.salonNum = s.numero and :new.salonBib = s.biblioteca;
@@ -480,6 +481,7 @@ BEGIN
     SELECT max(codigo) INTO cod FROM reservasSalones;
     SELECT tipo INTO aft FROM afiliados WHERE codigo = :new.afiliado;
     SELECT biblioteca INTO bip FROM empleados WHERE :new.bibliotecario = codigo;
+    SELECT bloqueado INTO blo FROM afiliados WHERE :new.afiliado = codigo;
     IF (cod is null) THEN 
         cod:= 0;
     END IF;
@@ -496,6 +498,9 @@ BEGIN
     END IF;
     IF (bip <> :new.salonbib) THEN
         RAISE_APPLICATION_ERROR(-20002, 'El bibliotecario no esta asignada a la biblioteca');
+    END IF;
+    IF (blo = 1) THEN
+        RAISE_APPLICATION_ERROR(-20002, 'El afiliado se encuentra bloqueado');     
     END IF;
     :new.valorTotal := (dif * valor);
     UPDATE afiliados SET bloqueado = 1 WHERE :new.afiliado = codigo;
