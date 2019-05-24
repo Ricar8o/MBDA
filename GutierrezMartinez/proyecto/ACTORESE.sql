@@ -16,6 +16,11 @@ CREATE OR REPLACE PACKAGE PA_AFILIADO IS
     PROCEDURE MO_AFILIADO_TIP (codigox VARCHAR, tipox VARCHAR);
     FUNCTION CO_INTERESES (codigox IN VARCHAR)  RETURN SYS_REFCURSOR;
     FUNCTION CO_LIBROS_SACADOS (codigox IN VARCHAR)  RETURN SYS_REFCURSOR;
+    PROCEDURE pagar (reservax number);
+    PROCEDURE modificarFechas (reservax number, iniciox DATE, finx DATE);
+    PROCEDURE eliminarReserva (reservax number);
+    FUNCTION consultarSalon (tipox varchar) RETURN SYS_REFCURSOR;
+    FUNCTION consultarSalon (tipox varchar, bibliotecax varchar) RETURN SYS_REFCURSOR;
 END PA_AFILIADO;
 /
 CREATE OR REPLACE PACKAGE PA_BIBLIOTECARIO IS 
