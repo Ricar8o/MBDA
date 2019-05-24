@@ -2116,6 +2116,8 @@ INSERT INTO AUTORES(nombre, pais) VALUES('Julio Cortazar', 'Argentina');
 INSERT INTO AUTORES(nombre, pais) VALUES('Carlos Fuentes', 'Mexico');
 INSERT INTO AUTORES(nombre, pais) VALUES('Andres Caicedo', 'Colombia');
 INSERT INTO AUTORES(nombre, pais) VALUES('Honore de Balzac', 'Francia');
+INSERT INTO AUTORES(nombre, pais) VALUES('George R.R. Martin', 'EE.UU');
+INSERT INTO AUTORES(nombre, pais) VALUES('Cassandra Clare', 'EE.UU');
 
 /*libros*/
 /*if this == 1 then 'Luis Angel Arango' elsif this == 2 then 'Virgilio Barco' elsif this == 3 then 'El Tintal Manuel Zapata Olivella' elsif this == 4 then 'Biblioteca Publica Parque El Tunal' elsif this == 5 then 'Biblioteca Publica Julio Mario Santo Domingo' elsif this == 6 then 'Biblioteca Nacional' elsif this == 7 then 'La Victoria' elsif this == 8 then 'Las Ferias' elsif this == 9 then 'Biblioteca Publica El parque' else 'Biblioteca Publica Lago Timiza' end*/
@@ -2486,6 +2488,14 @@ INSERT INTO CATEGORIAS(Libro,Nombre) VALUES('000095', 'Infantil');
 INSERT INTO CATEGORIAS(Libro,Nombre) VALUES('000116', 'Infantil');
 INSERT INTO CATEGORIAS(Libro,Nombre) VALUES('000137', 'Infantil');
 /*autores-libros*/
+INSERT INTO autoreslibros(libro,autor) VALUES('000001', (select codigo from autores where nombre = 'George R.R. Martin'));
+INSERT INTO autoreslibros(libro,autor) VALUES('000002', (select codigo from autores where nombre = 'George R.R. Martin'));
+INSERT INTO autoreslibros(libro,autor) VALUES('000006', (select codigo from autores where nombre = 'George R.R. Martin'));
+INSERT INTO autoreslibros(libro,autor) VALUES('000007', (select codigo from autores where nombre = 'George R.R. Martin'));
+INSERT INTO autoreslibros(libro,autor) VALUES('000011', (select codigo from autores where nombre = 'George R.R. Martin'));
+INSERT INTO autoreslibros(libro,autor) VALUES('000012', (select codigo from autores where nombre = 'Cassandra Clare'));
+INSERT INTO autoreslibros(libro,autor) VALUES('000013', (select codigo from autores where nombre = 'Cassandra Clare'));
+INSERT INTO autoreslibros(libro,autor) VALUES('000038', (select codigo from autores where nombre = 'Cassandra Clare'));
 INSERT INTO autoreslibros(libro,autor) VALUES('000040', (select codigo from autores where nombre = 'J. D. Salinger'));
 INSERT INTO autoreslibros(libro,autor) VALUES('000041', (select codigo from autores where nombre = 'Franz Kafka'));
 INSERT INTO autoreslibros(libro,autor) VALUES('000042', (select codigo from autores where nombre = 'Fiodor Dostoyevski'));
@@ -2752,7 +2762,7 @@ VALUES('Dano leve', 'El libro presenta un ligero dano, no es necesario reemplazo
 INSERT INTO causas(id, descripcion)
 VALUES('Dano grave', 'El libro presenta un gran dano, solicita reemplazo');
 
-/*Poblar multas*/
+/*Poblar multas
 INSERT INTO multas(causa, prestamo)
 VALUES('Dano grave', 100);
 INSERT INTO multas(causa, prestamo, valor)
@@ -2760,11 +2770,16 @@ VALUES('Perdida', 2, 100000);
 INSERT INTO multas(causa, prestamo, valor)
 VALUES('Perdida', 3, 200000);
 INSERT INTO multas(causa, prestamo, valor)
-VALUES('Dano leve', 4, 50000);
-                                                         
+VALUES('Dano leve', 4, 50000);*/
+
 /*Ciclo 2*/
 INSERT INTO TIPOSSALONES (tipo, valorHora) VALUES ('Conferencia', 100000);
+INSERT INTO TIPOSSALONES (tipo, valorHora) VALUES ('Estudio', 1000);
+
 INSERT INTO SALONES VALUES (101, 'Luis Angel Arango', 200, 'Conferencia');
 INSERT INTO SALONES VALUES (102, 'Luis Angel Arango', 200, 'Conferencia');
+INSERT INTO SALONES VALUES (101, 'Virgilio Barco', 4,'Estudio');
+INSERT INTO SALONES VALUES (102, 'Virgilio Barco', 2,'Estudio');
+
 INSERT INTO RESERVASSALONES (inicio, fin, salonnum, salonbib, afiliado, bibliotecario) 
-VALUES (TO_DATE('01/01/2017 20:35:09', 'DD.MM.YYYY HH24:MI:SS'), TO_DATE('01/01/2017 22:35:09', 'DD.MM.YYYY HH24:MI:SS'), 101, 'Luis Angel Arango', (SELECT codigo FROM afiliados WHERE bloqueado = 0, '000956');
+VALUES (TO_DATE('01/01/2017 20:35:09', 'DD.MM.YYYY HH24:MI:SS'), TO_DATE('01/01/2017 22:35:09', 'DD.MM.YYYY HH24:MI:SS'), 101, 'Luis Angel Arango', (SELECT codigo FROM afiliados WHERE bloqueado = 0 and rownum=1), '000956');
