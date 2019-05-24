@@ -77,6 +77,28 @@ CREATE OR REPLACE PACKAGE BODY PA_AFILIADO IS
     LIBS := PCK_AFILIADO.CO_LIBROS_SACADOS (codigox);
     RETURN LIBS ;
     END;
+    PROCEDURE pagar (reservax number) IS 
+    BEGIN
+        PC_RESERVASALON.pagar(reservax);
+    END; 
+    PROCEDURE modificarFechas (reservax number, iniciox DATE, finx DATE) IS
+    BEGIN
+        PC_RESERVASALON.modificarFechas(reservax, iniciox, finx) ;
+    END; 
+    PROCEDURE eliminarReserva (reservax number) IS 
+    BEGIN 
+        PC_RESERVASALON.eliminarReserva(reservax);
+    END; 
+    FUNCTION consultarSalon (tipox varchar) RETURN SYS_REFCURSOR IS SAL SYS_REFCURSOR;
+    BEGIN
+    SAL := PC_RESERVASALON.consultarSalon (tipox);
+    RETURN SAL;
+    END;
+    FUNCTION consultarSalon (tipox varchar, bibliotecax varchar) RETURN SYS_REFCURSOR IS SAL SYS_REFCURSOR;
+    BEGIN
+    SAL := PC_RESERVASALON.consultarSalon (tipox, bibliotecax);
+    RETURN SAL;
+    END;
 END PA_AFILIADO;
 /
 CREATE OR REPLACE PACKAGE BODY PA_BIBLIOTECARIO IS 
