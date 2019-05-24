@@ -142,4 +142,4 @@ salonNum number(3),
 salonBib varchar(50),
 afiliado varchar(6),
 bibliotecario varchar(6));
-DROP TABLE reservasSalones;
+
