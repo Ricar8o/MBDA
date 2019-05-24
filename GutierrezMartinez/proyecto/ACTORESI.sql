@@ -185,6 +185,10 @@ CREATE OR REPLACE PACKAGE BODY PA_BIBLIOTECARIO IS
     LIBS := PCK_AFILIADO.CO_LIBROS_SACADOS (codigox);
     RETURN LIBS ;
     END;
+    PROCEDURE reservar (afiliadox varchar, numSalonx number, bibliotecax varchar, bibliotecariox varchar, iniciox DATE, finx DATE) IS 
+    BEGIN
+    PC_RESERVASALON.reservar(afiliadox, numSalonx, bibliotecax, bibliotecariox, iniciox, finx);
+    END;
 END PA_BIBLIOTECARIO;
 /
 CREATE OR REPLACE PACKAGE BODY PA_ARCHIVISTA IS 
