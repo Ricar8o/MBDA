@@ -43,3 +43,12 @@ CREATE OR REPLACE PACKAGE PCK_AFILIADO IS
   FUNCTION CO_INTERESES (codigox IN VARCHAR)  RETURN SYS_REFCURSOR;
   FUNCTION CO_LIBROS_SACADOS (codigox IN VARCHAR)  RETURN SYS_REFCURSOR;
 END;
+/
+CREATE OR REPLACE PACKAGE PC_RESERVASALON IS
+  PROCEDURE reservar (afiliadox varchar, numSalonx number, bibliotecax varchar, bibliotecariox varchar, iniciox DATE, finx DATE);
+  PROCEDURE pagar (reservax number);
+  PROCEDURE modificarFechas (reservax number, iniciox DATE, finx DATE);
+  PROCEDURE eliminarReserva (reservax number);
+  FUNCTION consultarSalon (tipox varchar) RETURN SYS_REFCURSOR;
+  FUNCTION consultarSalon (tipox varchar, bibliotecax varchar) RETURN SYS_REFCURSOR;
+END;
