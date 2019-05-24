@@ -120,3 +120,26 @@ causa varchar(20) NOT NULL,
 prestamo number(6) NOT NULL,
 valor NUMBER(6),
 pagada NUMBER(1));
+             
+/*Ciclo 2*/
+CREATE TABLE salones(
+numero number(3),
+biblioteca varchar(50),
+capacidad number(4),
+tipo varchar(20));
+
+CREATE TABLE tiposSalones(
+tipo varchar(20),
+valorHora number(6));
+
+CREATE TABLE reservasSalones(
+codigo number(6),
+inicio DATE,
+fin DATE,
+valorTotal number(10),
+pagado number(1),
+salonNum number(3),
+salonBib varchar(50),
+afiliado varchar(6),
+bibliotecario varchar(6));
+DROP TABLE reservasSalones;
