@@ -297,3 +297,50 @@ CREATE OR REPLACE PACKAGE BODY PCK_AFILIADO IS
     RETURN LIB;
     END;
 END;
+/
+CREATE OR REPLACE PACKAGE BODY PC_RESERVASALON IS
+  PROCEDURE reservar (afiliadox varchar, numSalonx number, bibliotecax varchar, bibliotecariox varchar, iniciox DATE, finx DATE) IS
+  BEGIN
+  INSERT INTO reservassalones (afiliado, salonnum, salonbib, bibliotecario, inicio, fin) VALUES (afiliadox, numSalonx, bibliotecax, bibliotecariox, iniciox, finx);
+  EXCEPTION
+  WHEN OTHERS THEN 
+        ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo hacer la reserva');
+  END; 
+  PROCEDURE pagar (reservax number) IS 
+  BEGIN
+  UPDATE reservassalones SET pagado = 1 WHERE codigo = reservax;
+  EXCEPTION
+  WHEN OTHERS THEN 
+        ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudo hacer el pago');
+  END; 
+  PROCEDURE modificarFechas (reservax number, iniciox DATE, finx DATE) IS
+  BEGIN
+  UPDATE reservassalones SET inicio = iniciox, fin = finx WHERE codigo = reservax;
+  EXCEPTION
+  WHEN OTHERS THEN 
+        ROLLBACK;
+            RAISE_APPLICATION_ERROR(-20001, 'No se pudieron modificar las fechas');
+  END; 
+  PROCEDURE eliminarReserva (reservax number) IS
+  BEGIN
+  DELETE FROM reservassalones WHERE codigo = reservax;
+  EXCEPTION
+  WHEN OTHERS THEN 
+    ROLLBACK;
+        RAISE_APPLICATION_ERROR(-20001, 'No se pudo eliminar la reserva');
+  END;
+  FUNCTION consultarSalon (tipox varchar) RETURN SYS_REFCURSOR IS SAL SYS_REFCURSOR;
+    BEGIN
+    OPEN SAL FOR 
+        SELECT numero, biblioteca, tipo FROM salones WHERE LOWER(tipox) LIKE  '%'||LOWER(tipo)||'%'; 
+    RETURN SAL;
+  END;
+  FUNCTION consultarSalon (tipox varchar, bibliotecax varchar) RETURN SYS_REFCURSOR IS SAL SYS_REFCURSOR;
+    BEGIN
+    OPEN SAL FOR 
+        SELECT numero, biblioteca, tipo FROM salones WHERE LOWER(tipox) LIKE  '%'||LOWER(tipo)||'%' and LOWER(bibliotecax) LIKE  '%'||LOWER(biblioteca)||'%'; 
+    RETURN SAL;
+ END;
+END;                                                                                       
