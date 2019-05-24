@@ -501,7 +501,7 @@ BEGIN
     UPDATE afiliados SET bloqueado = 1 WHERE :new.afiliado = codigo;
 END;
 /
-CREATE OR REPLACE TRIGGER mo_reservasSalones
+CREATE OR REPLACE TRIGGER mo_reservasSalones1
 BEFORE UPDATE OF pagado ON reservasSalones 
 FOR EACH ROW
 BEGIN
@@ -510,7 +510,7 @@ BEGIN
     END IF;
 END;
 /
-CREATE OR REPLACE TRIGGER mo_reservasSalones
+CREATE OR REPLACE TRIGGER mo_reservasSalones2
 BEFORE UPDATE OF inicio, fin ON reservasSalones
 FOR EACH ROW
 DECLARE
